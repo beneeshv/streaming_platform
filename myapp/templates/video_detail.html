@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video.title }} - Prime Video</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    body {
+        background-color: #000000;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .video-container {
+        width: 90%;
+        height: 75vh;
+        background: linear-gradient(to right, #000000, #000000e9, #0f171e1a, #0f171e0f),
+                    linear-gradient(to top, #000000ff, #00000000, #0f171e1a, #0f171e00),
+                    url('{{ video.thumb_image.url }}') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        padding: 5%;
+        position: relative;
+    }
+
+    .video-details {
+        max-width: 50%;
+    }
+
+    .video-title {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .video-info {
+        font-size: 1rem;
+        color: #aaa;
+        margin-bottom: 15px;
+    }
+
+    .video-description {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .action-buttons {
+        display: flex;
+        align-items: center;
+    }
+
+    .prime-button {
+        background-color: #1f80e0;
+        color: white;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+        transition: 0.3s;
+    }
+
+    .prime-button:hover {
+        background-color: #1669b2;
+    }
+
+    .list-button {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 15px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .list-button:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .icon {
+        margin-right: 8px;
+    }
+
+    /* Video Player */
+    .video-player {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 900px;
+        background: black;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+        z-index: 1000;
+    }
+
+    .video-player video {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 25px;
+        color: white;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+    /* Overlay Background */
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 900;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .video-container {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            padding: 10%;
+        }
+
+        .video-details {
+            max-width: 100%;
+        }
+    }
+
+    .back-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.back-btn:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+.related-container {
+    margin: 2rem 5%;
+}
+
+.related-container h2 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.related-row {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;  /* allows horizontal scroll if needed */
+    padding-bottom: 10px;  /* extra space for scroll bar */
+}
+
+/* Each movie card/link */
+.related-item {
+    flex: 0 0 auto;
+    width: 300px;             /* enlarged base width */
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s;
+    transform-origin: center; /* enlarge from the center */
+}
+
+.related-item:hover {
+    transform: scale(1.2);    /* bigger hover effect */
+}
+
+/* Movie thumbnail */
+.related-item img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+
+</style>
+<body>
+    {% block content %}
+    <div class="video-container">
+        <div class="video-details">
+            <h1 class="video-title">{{ video.title }}</h1>
+            <p class="video-info">96% Match  |  2019  |  MA 15+  |  5 Seasons</p>
+            <p class="video-description">{{ video.description }}</p>
+
+            <div class="action-buttons">
+                <button class="prime-button" onclick="playVideo()">
+                    <i class="fas fa-play icon"></i> Watch Now
+                </button>
+
+                <button class="list-button">
+                    <a href="" class="list-button">
+                        <i class="fas fa-plus icon"></i> Add to Watchlist
+                    </a>
+                    
+                </button>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Video Player -->
+<div class="video-player" id="videoPlayer">
+    <button class="close-btn" onclick="closeVideo()">×</button>
+    <video controls id="video">
+        <source src="{{ video.video_file.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <button class="back-btn" onclick="closeVideo()">Back</button>
+</div>
+
+<!-- suggession-->
+
+
+    <!-- Main Movie Banner Section -->
+    
+
+    <!-- Related Movies Section -->
+    <div class="related-container">
+        <h2>Customers also watched</h2>
+        <div class="related-row">
+            {% for item in related_videos %}
+                <a href="{% url 'video_detail' item.id %}" class="related-item">
+                    <img src="{{ item.thumb_image.url }}" alt="{{ item.title }}">
+                    <p>{{ item.title }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Video Player Overlay Section -->
+    <!-- ... existing video player code ... -->
+
+
+
+
+    <script>
+       function playVideo() {
+    document.getElementById('videoPlayer').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('video').play();
+}
+
+function closeVideo() {
+    document.getElementById('videoPlayer').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('video').pause();
+    document.getElementById('video').currentTime = 0;  // Reset video to the beginning
+}
+
+    </script>
+{% endblock %}
+</body>
+</html>

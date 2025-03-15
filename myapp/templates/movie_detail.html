@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ movie.title }}</title>
+    <style>
+        body { background-color: black; color: white; text-align: center; }
+        .container { padding: 20px; }
+        .trailer { margin-top: 20px; }
+        iframe { width: 80%; height: 400px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ movie.title }}</h1>
+        <p>{{ movie.overview }}</p>
+
+        <div class="trailer">
+            {% if movie.videos.results %}
+                <iframe src="https://www.youtube.com/embed/{{ movie.videos.results.0.key }}" frameborder="0" allowfullscreen></iframe>
+            {% else %}
+                <p>No trailer available.</p>
+            {% endif %}
+        </div>
+        
+        <a href="{% url 'home' %}" style="color: red;">← Back to Home</a>
+    </div>
+</body>
+</html>

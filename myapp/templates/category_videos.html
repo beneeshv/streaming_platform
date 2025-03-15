@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotflix - {{ category.name }}</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #000000;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* Horizontal Scrolling Movie Row */
+        .movie-row {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+            scrollbar-width: none;
+        }
+
+        .movie-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .movie-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        
+        .movie-card {
+    position: relative;
+    width: 330px;
+    height: 180px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 8px;
+}
+
+
+        .movie-card:hover {
+            transform: scale(1.1);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Movie Info (Hidden by default) */
+        .movie-info {
+    position: absolute;
+    bottom: -100%; /* Initially hidden inside the card */
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 15px;
+    text-align: left;
+    transition: bottom 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    opacity: 0;
+}
+
+
+.movie-card:hover .movie-info {
+    bottom: 0; /* Moves up smoothly inside the movie card */
+    opacity: 1;
+}
+
+
+        .movie-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .movie-description {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .watch-btn, .watchlist-btn {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+
+        .watch-btn {
+            background: #00a8ff;
+            color: white;
+        }
+
+        .watch-btn:hover {
+            background: #007acc;
+        }
+
+        .watchlist-btn {
+            background: #444;
+            color: white;
+        }
+
+        .watchlist-btn:hover {
+            background: #333;
+        }
+
+        .new-movie-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .movie-container {
+                flex-wrap: nowrap;
+                overflow-x: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Videos in {{ category.name }}</h2>
+    <div class="movie-row">
+        <div class="movie-container">
+            {% for video in videos %}
+                <div class="movie-card">
+                    <a href="{% url 'video_detail' video.id %}">
+                        <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
+                        {% if video.is_new %}
+                            <div class="new-movie-badge">NEW</div>
+                        {% endif %}
+                        <div class="movie-info">
+                            <p class="movie-title">{{ video.title }}</p>
+                            <p class="movie-description">{{ video.description|truncatewords:15 }}</p>
+                            <div class="btn-group">
+                                <a href="{% url 'video_detail' video.id %}" class="watch-btn">▶ Watch Now</a>
+                                <button class="watchlist-btn" onclick="addToWatchlist('{{ video.title }}')">+ Watchlist</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function addToWatchlist(movieTitle) {
+            alert(movieTitle + " added to your Watchlist!");
+        }
+    </script>
+
+</body>
+</html>

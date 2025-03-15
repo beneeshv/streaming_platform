@@ -1,0 +1,445 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Video Streaming</title>
+    <style>
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f0f;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #000;
+    color: white;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-right: 80px;
+    margin-left: 60px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-right: 45px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.nav-links .divider {
+    width: 1px;
+    height: 24px;
+    background-color: #555;
+    margin: 0 12px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.search-icon, .language-selector, .menu-icon, .profile-icon {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.join-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.join-btn:hover {
+    background-color: #005bb5;
+}
+
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .category {
+            margin-bottom: 30px;
+        }
+        .category h2 {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+        .videos {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        .video-item {
+            width: 200px;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+
+        .rental-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+.rental-text {
+    max-width: 40%;
+}
+
+.rental-text h1 {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.rental-text p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.rent-button {
+    background-color: white;
+    color: black;
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.rent-button:hover {
+    background-color: #e0e0e0;
+}
+
+.rental-images {
+    display: flex;
+    gap: 10px;
+}
+
+.rental-images img {
+    width: 180px;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.rental-images img:hover {
+    transform: scale(1.05);
+}
+
+#design
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.prime-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px; /* Increased padding */
+}
+
+.welcome-text {
+    max-width: 50%; /* Increased width */
+}
+
+.welcome-text h1 {
+    font-size: 60px; /* Bigger font size */
+    font-weight: bold;
+}
+
+.welcome-text p {
+    font-size: 22px; /* Bigger paragraph text */
+    margin: 15px 0;
+}
+
+.sign-in-btn {
+    background-color: #e0e0e0;
+    color: black;
+    padding: 18px 30px; /* Increased button padding */
+    font-size: 22px; /* Bigger button text */
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.sign-in-btn:hover {
+    background-color: #d6d6d6;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* Increased spacing */
+}
+
+.movie-grid img {
+    width: 220px; /* Increased image size */
+    border-radius: 10px;
+    transition: transform 0.3s;
+    height: 200px;
+}
+
+.movie-grid img:hover {
+    transform: scale(1.1); /* Stronger hover effect */
+}
+
+
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: white;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            position: relative;
+            width: 100%;
+            height: 85vh; /* Reduced height */
+            background: url('https://i.postimg.cc/T17HbGfh/banner-image.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Align content to the left */
+            padding-left: 10%;
+            text-align: left;
+        }
+
+        /* Dark Overlay */
+        .welcome-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.168);
+        }
+
+        /* Banner Content */
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .banner-content h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .banner-content p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* Join Button */
+        .join-btn {
+            background-color: #1f80e0;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .join-btn:hover {
+            background-color: #1669b2;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .welcome-banner {
+                height: 75vh; /* Adjusted height for smaller screens */
+                justify-content: center;
+                text-align: center;
+                padding-left: 0;
+            }
+
+            .banner-content h1 {
+                font-size: 2rem;
+            }
+
+            .banner-content p {
+                font-size: 1rem;
+            }
+
+            .join-btn {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        .profile-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 150px;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.dropdown-menu p {
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: white;
+    padding: 5px 0;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    color: #1dbf73;
+}
+
+.profile-menu:hover .dropdown-menu {
+    display: block;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="logo">HOT <strong>Flix</strong></span>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'movies' %}">Movies</a>
+                </li>
+                <li><a href="{% url 'trailer' %}">Trailer cuts</a></li>
+                <li><a href="#">Live TV</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Subscriptions</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-right">
+            <span class="search-icon">🔍</span>
+            <div class="profile-menu">
+                <img src="https://www.kindpng.com/picc/m/173-1731325_person-icon-png-transparent-png.png" alt="Profile" class="profile-icon">
+                <div class="dropdown-menu">
+                    <p>YOUR ACCOUNT</p>
+                    <a href="#">Sign in</a>
+                    <a href="#">Help</a>
+                    <a href="#">See anywhere</a>
+                </div>
+            </div>
+            
+            <button class="join-btn">Join Prime</button>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+
+
+
+
+
+         
+
+    <!-- BANNER STARTS HERE -->
+    <div class="welcome-banner">
+        <div class="banner-content">
+            <h1>Welcome to Prime Video</h1>
+            <p>Watch the latest movies, TV shows, and Amazon Originals anytime, anywhere.</p>
+            <button class="join-btn">Sign in to join Prime</button>
+        </div>
+    </div>
+  
+
+    <h1>Video Categories</h1>
+
+    {% for category in categories %}
+        <div class="category">
+            <h2><a href="{% url 'category_videos' category.id %}">{{ category.name }}</a></h2>
+        </div>
+    {% empty %}
+        <p>No categories found.</p>
+    {% endfor %}
+
+</body>
+</html>

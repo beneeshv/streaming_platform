@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Netflix Clone</title>
+    <style>
+        body { background-color: black; color: white; text-align: center; }
+        .category { margin-bottom: 20px; }
+        .movies { display: flex; overflow-x: auto; padding: 10px; }
+        .movie { margin: 10px; text-align: center; }
+        .movie img { width: 200px; height: 300px; border-radius: 10px; cursor: pointer; }
+        h2 { text-align: left; margin-left: 20px; }
+        a { text-decoration: none; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Netflix Clone</h1>
+
+    {% for category, movies_list in movies.items %}
+        <div class="category">
+            <h2>{{ category }}</h2>
+            <div class="movies">
+                {% for movie in movies_list %}
+                    <div class="movie">
+                        <a href="{% url 'movie_details' movie.id %}">
+                            <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }}">
+                            <h3>{{ movie.title }}</h3>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>

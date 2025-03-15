@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0f0f0f;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #000;
+    color: white;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-right: 80px;
+    margin-left: 60px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-right: 45px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.nav-links .divider {
+    width: 1px;
+    height: 24px;
+    background-color: #555;
+    margin: 0 12px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.search-icon, .language-selector, .menu-icon, .profile-icon {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.join-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.join-btn:hover {
+    background-color: #005bb5;
+}
+
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .category {
+            margin-bottom: 30px;
+        }
+        .category h2 {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+        .videos {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        .video-item {
+            width: 200px;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        .profile-icon {
+    width: 30px;  /* Adjust size */
+    height: 30px;
+    border-radius: 50%; /* Makes it round */
+    object-fit: cover; /* Ensures proper scaling */
+}
+
+
+
+</style>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="logo">HOT <strong>Flix</strong></span>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="{% url 'trailer' %}">Trailer cuts</a></li>
+                <li><a href="#">Live TV</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Subscriptions</a></li>
+            </ul>
+        </div>
+        
+        <div class="nav-right">
+            <span class="search-icon">🔍</span>
+            <div class="profile-menu">
+                <img src="https://www.kindpng.com/picc/m/173-1731325_person-icon-png-transparent-png.png" alt="Profile" class="profile-icon">
+                <div class="dropdown-menu">
+                    <p>YOUR ACCOUNT</p>
+                    <a href="#">Sign in</a>
+                    <a href="#">Help</a>
+                    <a href="#">See anywhere</a>
+                </div>
+            </div>
+            
+            <button class="join-btn">Join Prime</button>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+
+
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Netflix</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* Netflix Background */
+body.netflix-background {
+    background: url('https://assets.nflxext.com/ffe/siteui/vlv3/bb3d9eaa-2736-4d32-b9ef-9a67047d41e7/d9cb3d58-e4b4-41c7-a9fb-1d12e93b9321/US-en-20230918-popsignuptwoweeks-perspective_alpha_website_small.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Container Styling */
+.container {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Heading */
+.container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+.container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #333;
+    color: #fff;
+}
+
+/* Placeholder Styling */
+.container input::placeholder {
+    color: #bbb;
+}
+
+/* Button */
+.container button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background: #e50914;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.container button:hover {
+    background: #b20710;
+}
+
+/* Message Styling */
+.message {
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+/* Link Styling */
+.container p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.container a {
+    color: #e50914;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}
+
+</style>
+<body class="netflix-background">
+    <div class="container">
+        <h2>Login</h2>
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        <a href="{% url 'admin_login' %}">admin </a>
+    </div>
+</body>
+</html>

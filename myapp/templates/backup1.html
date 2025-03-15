@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Movies Page</title>
+  <style>
+    /* Basic Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #141414;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      padding-left: 20px;
+    }
+    /* Carousel Container */
+    .carousel-container {
+      position: relative;
+      margin: 0 20px 40px;
+    }
+    .carousel-track-container {
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    /* Carousel Item (Movie Poster Card) */
+    .carousel-item {
+      min-width: 220px;
+      margin-right: 10px;
+      background-color: #222;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-item img {
+      width: 100%;
+      display: block;
+    }
+    /* Movie Info Section */
+    .carousel-info {
+      padding: 10px;
+    }
+    .carousel-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    .carousel-info p {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+    .watch-btn {
+      display: inline-block;
+      background-color: #00a8ff;
+      color: #fff;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .watch-btn:hover {
+      background-color: #007acc;
+    }
+    /* Navigation Buttons */
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(20,20,20,0.8);
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    .carousel-button.left {
+      left: 10px;
+    }
+    .carousel-button.right {
+      right: 10px;
+    }
+    .carousel-button:hover {
+      background-color: rgba(20,20,20,1);
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .carousel-item {
+        min-width: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Trending Movies</h1>
+  
+  <!-- Loop through each category -->
+  {% for category in categories %}
+    <h2>
+      <a href="{% url 'category_videos' category.id %}" style="color:inherit; text-decoration:none;">
+        {{ category.name }}
+      </a>
+    </h2>
+    <div class="carousel-container">
+      <!-- Left Navigation Button -->
+      <button class="carousel-button left" id="prevBtn{{ category.id }}">&#10094;</button>
+      
+      <!-- Carousel Track Container -->
+      <div class="carousel-track-container">
+        <div class="carousel-track" id="carouselTrack{{ category.id }}">
+          {% for video in category.video_set.all %}
+            <div class="carousel-item">
+              <a href="{% url 'video_detail' video.id %}">
+                <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
+                <div class="carousel-info">
+                  <h3>{{ video.title }}</h3>
+                  <p>{{ video.description }}</p>
+                  <button class="watch-btn" onclick="location.href='{% url 'video_detail' video.id %}'">Watch Now</button>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- Right Navigation Button -->
+      <button class="carousel-button right" id="nextBtn{{ category.id }}">&#10095;</button>
+    </div>
+  {% endfor %}
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Create an array of category IDs from the passed context
+      const categoryIds = [
+        {% for category in categories %}
+          {{ category.id }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+      ];
+      
+      // Initialize carousel for each category
+      categoryIds.forEach(function(catId) {
+        const track = document.getElementById('carouselTrack' + catId);
+        const prevBtn = document.getElementById('prevBtn' + catId);
+        const nextBtn = document.getElementById('nextBtn' + catId);
+        if (!track || !prevBtn || !nextBtn) return;
+        
+        // Calculate the width of one carousel item (including right margin)
+        const itemWidth = track.querySelector('.carousel-item').offsetWidth + 10;
+        const totalItems = track.querySelectorAll('.carousel-item').length;
+        let currentIndex = 0;
+        
+        nextBtn.addEventListener('click', function() {
+          if (currentIndex < totalItems - 1) {
+            currentIndex++;
+            track.style.transform = 'translateX(' + (-currentIndex * itemWidth) + 'px)';
+          }
+        });
+        
+        prevBtn.addEventListener('click', function() {
+          if (currentIndex > 0) {
+            currentIndex--;
+            track.style.transform = 'translateX(' + (-currentIndex * itemWidth) + 'px)';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
