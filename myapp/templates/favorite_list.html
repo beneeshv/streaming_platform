@@ -1,0 +1,11 @@
+<h2>My Favorite Movies</h2>
+{% for video in favorite_videos %}
+    <div class="video-card">
+        <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
+        <h3>{{ video.title }}</h3>
+        <p>{{ video.description }}</p>
+        <a href="{% url 'video_detail' video.id %}">Watch Now</a>
+    </div>
+{% empty %}
+    <p>No favorite movies yet.</p>
+{% endfor %}

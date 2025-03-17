@@ -5,95 +5,393 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movies Page</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    .category {
-      margin-bottom: 30px;
-    }
-    .category h2 {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: #000;
-    }
-    /* Ensure the category link appears as plain text */
-    .category h2 a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .movies-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-    .movie {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      width: 180px;
-      overflow: hidden;
-      transition: transform 0.2s;
-    }
-    .movie:hover {
-      transform: scale(1.05);
-    }
-    .movie img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .movie h3 {
-      font-size: 16px;
-      margin: 10px;
-      color: #000;
-    }
-    .movie p {
-      font-size: 14px;
-      margin: 0 10px 10px;
-      color: #666;
-    }
-    .movie .details {
-      padding: 10px;
-    }
-    .movie .details span {
-      display: block;
-      font-size: 12px;
-      color: #888;
-    }
+  
+ /* General Styles */
+body {
+    background-color: #000000;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* Category Title */
+.category h2 a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    padding-left: 10px;
+}
+
+.category h2 a:hover {
+    text-decoration: underline;
+}
+
+/* Movie List (Horizontal Scroll) */
+.movies-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px;
+    scrollbar-width: none; /* Hide scrollbar */
+}
+
+.movies-list::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit */
+}
+
+/* Movie Card */
+
+
+/* Movie Details Popup */
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    align-items: center;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+
+
+.slide {
+    min-width: 100%;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+}
+
+/* Add Black Shadow at the Bottom Like Prime Video */
+/* Black Shadow on Bottom and Left */
+.slide::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Covers the entire slide */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.971), transparent 20%), /* Bottom shadow */
+                linear-gradient(to right, rgba(0, 0, 0, 0.953), transparent 60%); /* Left shadow */
+    pointer-events: none; /* Ensures it doesn’t interfere with clicks */
+    border-top-right-radius: 15px; /* Smooth top-right corner */
+}
+
+
+
+
+.slide-text {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    color: #ab7f12;
+    max-width: 50%;
+    z-index: 2;
+}
+
+.slide-text h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.slide-text p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.slide-text button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.slide-text button:hover {
+    background-color: #45a049;
+}
+
+
+.slide-text1 {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    color: #4f939c;
+    max-width: 50%;
+    z-index: 2;
+}
+
+.slide-text1 h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.slide-text1 p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.slide-text1 button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.slide-text1 button:hover {
+    background-color: #45a049;
+}
+
+.slide-text2 {
+    position: absolute;
+    bottom: 15%;
+    left: 5%;
+    color: #0c5468;
+    max-width: 50%;
+    z-index: 2;
+}
+
+.slide-text2 h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.slide-text2 p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.slide-text2 button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+.slide-text2 button:hover {
+    background-color: #45a049;
+}
+
+.text2 {
+    color: #fff;
+}
+
+button.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+}
+
+button.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/* Dropdown menu inside movie card */
+.movie {
+    position: relative;
+    min-width: 260px;
+    max-width: 220px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.movie:hover {
+    transform: scale(1.1);
+}
+
+/* Movie Image */
+.movie img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 200px;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+/* Show dropdown when hovering over movie */
+.movie:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+}
+
+/* Styling for Dropdown Content */
+.dropdown-menu h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.dropdown-menu p {
+    font-size: 14px;
+    color: #ccc;
+    margin: 5px 0;
+}
+
+.dropdown-menu span {
+    display: block;
+    font-size: 12px;
+    color: #999;
+}
+
+
+
+
+
+
   </style>
 </head>
 <body>
+
+    <div class="carousel-container">
+        <div class="carousel">
+            <!-- Slide 1 -->
+            <div class="slide">
+                <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/wm/2023/06/spider-man-universes-in-across-the-spider-verse.jpg" alt="Realme P2 Pro">
+                <div class="slide-text">
+                    <h2>𝓢𝓲𝓭𝓮𝓻 𝓜𝓪𝓷 𝓐𝓬𝓬𝓻𝓸𝓼𝓼 𝓽𝓱𝓮 𝓦𝓸𝓻𝓵𝓭</h2>
+                    <p class="text2">96% Match  |  2019  |  MA 15+  |  5 Seasons<br>A17 Bionic Chip Set</p>
+                   
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="https://wallpapercg.com/download/iron-man-5120x2880-17841.jpg" alt="Realme GT">
+                <div class="slide-text1">
+                    <h2>𝕀𝕣𝕠𝕟 𝕄𝕒𝕟 𝟛</h2>
+                    <p class="text2">96% Match  |  2019  |  MA 15+  |  5 Seasons<br>Start From Rs 30000</p>
+                   
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="http://hdqwalls.com/wallpapers/ferdinand-2017-movie-4k-n1.jpg" alt="Realme Watch">
+                <div class="slide-text2">
+                    <h2>New Prminum Watches</h2>
+                    <p class="text2">1.8" Ultra-Large Display<br>14 Days Battery Life<br>GPS Tracking</p>
+                   
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <button class="carousel-btn prev" onclick="prevSlide()">&#10094;</button>
+        <button class="carousel-btn next" onclick="nextSlide()">&#10095;</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+
+            // Wrap around the slide index
+            if (index >= totalSlides) currentSlide = 0;
+            if (index < 0) currentSlide = totalSlides - 1;
+
+            // Move slides
+            const carousel = document.querySelector('.carousel');
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Initialize the first slide
+        showSlide(currentSlide);
+
+        // Auto-slide functionality (like Flipkart)
+        setInterval(() => {
+            nextSlide();
+        }, 5000); // Slide every 5 seconds
+    </script>
+   
+
   <h1>NEW MOVIE</h1>
   {% for category in categories %}
     <div class="category">
       <!-- Category Name (clickable) -->
       <h2>
+        {{ category.name }}
         <a href="{% url 'category_videos' category.id %}">
-          {{ category.name }}
+           See More >
         </a>
       </h2>
       <div class="movies-list">
         {% for video in category.video_set.all %}
-          <div class="movie">
-            <!-- Movie Card is clickable -->
+        <div class="movie">
             <a href="{% url 'video_detail' video.id %}">
-              <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
-              <div class="details">
-                <h3>{{ video.title }}</h3>
-                <p>{{ video.description }}</p>
-                <span>2024  2 h 39 min</span>
-                <span>U/A 16:1</span>
-              </div>
+                <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
             </a>
-          </div>
+            <div class="dropdown-menu">
+                <h3>{{ video.title }}</h3>
+                <span>2024 • 2h 39min</span>
+                <span>U/A 16+</span>
+            </div>
+        </div>
+        
         {% endfor %}
       </div>
     </div>

@@ -3,7 +3,7 @@ from .views import register, login_view, home, trailer, logout_view, category_li
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from .views import admin_login, admin_dashboard, admin_logout, add_video, movies
+from .views import admin_login, admin_dashboard, admin_logout, add_video, movies, add_to_favorites, favorite_list
 
 urlpatterns = [
     path('', home, name='home'),  # Root URL
@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin-logout/', admin_logout, name='admin_logout'),
     path('dashboard/add-video/', add_video, name='add_video'),
     path('movies/', movies, name='movies'),
+    path('favorite/<int:video_id>/', add_to_favorites, name='add_to_favorites'),
+    path('favorite-list/', favorite_list, name='favorite_list'),
     
 ]
 

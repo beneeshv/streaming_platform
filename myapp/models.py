@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class UserReg(models.Model):
@@ -45,3 +46,16 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.video.title}"
+    
+
+class Rating(models.Model):
+    user = models.ForeignKey(UserReg, on_delete=models.CASCADE, related_name='ratings')
+    video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='ratings')
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])  # Rating from 1 to 5
+    rated_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'video')  # Ensure a user can only rate a video once
+
+    def __str__(self):
+        return f'{self.user.name} rated {self.video.title} {self.rating} stars'

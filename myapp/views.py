@@ -224,6 +224,30 @@ def movies(request):
 
 
 
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from .models import Video, UserReg
+
+@login_required
+def add_to_favorites(request, video_id):
+    video = get_object_or_404(Video, id=video_id)
+    user = request.user
+
+    if video.fav.filter(id=user.id).exists():
+        video.fav.remove(user)  # Remove from favorites
+        is_favorite = False
+    else:
+        video.fav.add(user)  # Add to favorites
+        is_favorite = True
+
+    return JsonResponse({"is_favorite": is_favorite})
+
+@login_required
+def favorite_list(request):
+    user = request.user
+    favorite_videos = user.favorite_videos.all()
+    return render(request, 'favorite_list.html', {'favorite_videos': favorite_videos})
 
 
 
