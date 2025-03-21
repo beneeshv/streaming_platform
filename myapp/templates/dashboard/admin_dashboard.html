@@ -12,12 +12,15 @@
         <h2>Prime Admin</h2>
         <ul>
             <li><a href="#">Dashboard</a></li>
-            <li> <a href="{% url 'add_video' %}">add video </a></li>
+            <li><a href="{% url 'add_video' %}">Add Video</a></li>
             <li><a href="#">Movies</a></li>
             <li><a href="#">TV Shows</a></li>
             <li><a href="#">Analytics</a></li>
             <li><a href="#">Settings</a></li>
         </ul>
+        <div class="logout-section">
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
     </div>
     <div class="main-content">
         <div class="navbar">
@@ -45,6 +48,9 @@
         background: #0f0f0f;
         padding: 20px;
         height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .sidebar h2 {
         color: #00a8e1;
@@ -60,6 +66,23 @@
         color: white;
         text-decoration: none;
         display: block;
+    }
+    .logout-section {
+        margin-top: auto;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .logout-btn {
+        background-color: #d9534f;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: block;
+        text-align: center;
+    }
+    .logout-btn:hover {
+        background-color: #c9302c;
     }
     .main-content {
         flex-grow: 1;

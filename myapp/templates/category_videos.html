@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,35 +22,22 @@
             margin-bottom: 10px;
         }
 
-        /* Horizontal Scrolling Movie Row */
         .movie-row {
-            overflow-x: auto;
-            white-space: nowrap;
-            padding-bottom: 10px;
-            scrollbar-width: none;
-        }
-
-        .movie-row::-webkit-scrollbar {
-            display: none;
-        }
-
-        .movie-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
+            padding-bottom: 10px;
         }
 
-        
         .movie-card {
-    position: relative;
-    width: 270px;
-    height: 160px;
-    flex: 0 0 auto;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    border-radius: 8px;
-}
-
+            position: relative;
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            border-radius: 8px;
+        }
 
         .movie-card:hover {
             transform: scale(1.1);
@@ -60,71 +49,6 @@
             object-fit: cover;
             border-radius: 8px;
             transition: opacity 0.3s ease-in-out;
-        }
-
-        /* Movie Info (Hidden by default) */
-        .movie-info {
-    position: absolute;
-    bottom: -100%; /* Initially hidden inside the card */
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    padding: 15px;
-    text-align: left;
-    transition: bottom 0.4s ease-in-out, opacity 0.4s ease-in-out;
-    opacity: 0;
-}
-
-
-.movie-card:hover .movie-info {
-    bottom: 0; /* Moves up smoothly inside the movie card */
-    opacity: 1;
-}
-
-
-        .movie-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .movie-description {
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-bottom: 10px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .watch-btn, .watchlist-btn {
-            flex: 1;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            border-radius: 5px;
-            border: none;
-            text-align: center;
-        }
-
-        .watch-btn {
-            background: #00a8ff;
-            color: white;
-        }
-
-        .watch-btn:hover {
-            background: #007acc;
-        }
-
-        .watchlist-btn {
-            background: #444;
-            color: white;
-        }
-
-        .watchlist-btn:hover {
-            background: #333;
         }
 
         .new-movie-badge {
@@ -139,45 +63,70 @@
             border-radius: 5px;
         }
 
+        .movie-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            display: none;
+            text-align: center;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .movie-card:hover .movie-info {
+            display: block;
+        }
+
+        .watchlist-btn {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .watchlist-btn:hover {
+            background: #333;
+        }
+
         @media (max-width: 768px) {
-            .movie-container {
-                flex-wrap: nowrap;
-                overflow-x: scroll;
+            .movie-row {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
 <body>
-
+<br><br><br>
     <h2>Videos in {{ category.name }}</h2>
     <div class="movie-row">
-        <div class="movie-container">
-            {% for video in videos %}
-                <div class="movie-card">
-                    <a href="{% url 'video_detail' video.id %}">
-                        <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
-                        {% if video.is_new %}
-                            <div class="new-movie-badge">NEW</div>
-                        {% endif %}
-                        <div class="movie-info">
-                            <p class="movie-title">{{ video.title }}</p>
-                            <p class="movie-description">{{ video.description|truncatewords:15 }}</p>
-                            <div class="btn-group">
-                                <a href="{% url 'video_detail' video.id %}" class="watch-btn">▶ Watch Now</a>
-                                <button class="watchlist-btn" onclick="addToWatchlist('{{ video.title }}')">+ Watchlist</button>
-                            </div>
-                        </div>
-                    </a>
+        {% for video in videos %}
+            <div class="movie-card">
+                <a href="{% url 'video_detail' video.id %}">
+                    <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
+                    {% if video.is_new %}
+                        <div class="new-movie-badge">NEW</div>
+                    {% endif %}
+                </a>
+                <div class="movie-info">
+                    <p>{{ video.title }}</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'add_to_watchlist' video.id %}" class="watchlist-btn">+ Watchlist</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="watchlist-btn">Login to Add</a>
+                    {% endif %}
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% empty %}
+            <p>No videos found in this category.</p>
+        {% endfor %}
     </div>
-
-    <script>
-        function addToWatchlist(movieTitle) {
-            alert(movieTitle + " added to your Watchlist!");
-        }
-    </script>
-
 </body>
 </html>
+{% endblock %}

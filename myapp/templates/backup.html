@@ -1,197 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Amazon Prime Movie Carousel with Details</title>
-  <style>
-    /* Basic Reset */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background-color: #141414;
-      font-family: Arial, sans-serif;
-      color: #fff;
-      padding: 20px;
-    }
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      padding-left: 20px;
-    }
-    /* Carousel Container */
-    .carousel-container {
-      position: relative;
-      margin: 0 20px;
-    }
-    .carousel-track-container {
-      overflow: hidden;
-      position: relative;
-    }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    /* Carousel Item (Movie Poster Card) */
-    .carousel-item {
-      min-width: 220px;
-      margin-right: 10px;
-      background-color: #222;
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-    .carousel-item img {
-      width: 100%;
-      display: block;
-    }
-    /* Movie Info Section */
-    .carousel-info {
-      padding: 10px;
-    }
-    .carousel-info h3 {
-      font-size: 1.1rem;
-      margin-bottom: 5px;
-    }
-    .carousel-info p {
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-      color: #ccc;
-    }
-    .watch-btn {
-      display: inline-block;
-      background-color: #00a8ff;
-      color: #fff;
-      padding: 8px 12px;
-      font-size: 0.9rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-    .watch-btn:hover {
-      background-color: #007acc;
-    }
-    /* Navigation Buttons */
-    .carousel-button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(20,20,20,0.8);
-      border: none;
-      color: #fff;
-      font-size: 2rem;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 50%;
-      z-index: 2;
-    }
-    .carousel-button.left {
-      left: 10px;
-    }
-    .carousel-button.right {
-      right: 10px;
-    }
-    .carousel-button:hover {
-      background-color: rgba(20,20,20,1);
-    }
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .carousel-item {
-        min-width: 180px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Video Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #000;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+        .logo span {
+            color: #0099ff;
+        }
+        .nav-links {
+            display: flex;
+            margin-left: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        .nav-links a:hover {
+            color: #0099ff;
+        }
+        .divider {
+            height: 20px;
+            width: 1px;
+            background-color: gray;
+            margin: 0 10px;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        .icon {
+            color: white;
+            font-size: 18px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        .icon:hover {
+            color: #0099ff;
+        }
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            background-color: gray;
+            border-radius: 50%;
+        }
+        .join-btn {
+            background-color: #0073ff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .join-btn:hover {
+            background-color: #005bbf;
+        }
+    </style>
 </head>
 <body>
-  <h2>Trending Movies</h2>
-  <div class="carousel-container">
-    <!-- Left Navigation Button -->
-    <button class="carousel-button left" id="prevBtn">&#10094;</button>
-    
-    <!-- Carousel Track Container -->
-    <div class="carousel-track-container">
-      <div class="carousel-track" id="carouselTrack">
-        <!-- Carousel Item Example -->
-        <div class="carousel-item">
-          <img src="https://via.placeholder.com/220x330?text=Movie+1" alt="Movie 1">
-          <div class="carousel-info">
-              <h3>Movie Name 1</h3>
-              <p>This is a short description for Movie 1.</p>
-              <button class="watch-btn">Watch Now</button>
-          </div>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">prime <span>video</span></div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Movies</a>
+                <a href="#">TV Shows</a>
+                <a href="#">Live TV</a>
+                <div class="divider"></div>
+                <a href="#"><i class="fa-solid fa-qrcode"></i> Subscriptions</a>
+            </div>
         </div>
-        <div class="carousel-item">
-          <img src="https://via.placeholder.com/220x330?text=Movie+2" alt="Movie 2">
-          <div class="carousel-info">
-              <h3>Movie Name 2</h3>
-              <p>This is a short description for Movie 2.</p>
-              <button class="watch-btn">Watch Now</button>
-          </div>
+        <div class="nav-right">
+            <i class="fa-solid fa-magnifying-glass icon"></i>
+            <span>TA <i class="fa-solid fa-chevron-down"></i></span>
+            <i class="fa-solid fa-th icon"></i>
+            <div class="profile-icon"></div>
+            <button class="join-btn">Join Prime</button>
         </div>
-        <div class="carousel-item">
-          <img src="https://via.placeholder.com/220x330?text=Movie+3" alt="Movie 3">
-          <div class="carousel-info">
-              <h3>Movie Name 3</h3>
-              <p>This is a short description for Movie 3.</p>
-              <button class="watch-btn">Watch Now</button>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://via.placeholder.com/220x330?text=Movie+4" alt="Movie 4">
-          <div class="carousel-info">
-              <h3>Movie Name 4</h3>
-              <p>This is a short description for Movie 4.</p>
-              <button class="watch-btn">Watch Now</button>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="https://via.placeholder.com/220x330?text=Movie+5" alt="Movie 5">
-          <div class="carousel-info">
-              <h3>Movie Name 5</h3>
-              <p>This is a short description for Movie 5.</p>
-              <button class="watch-btn">Watch Now</button>
-          </div>
-        </div>
-        <!-- Add more items as needed -->
-      </div>
+    </nav>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Netflix</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* Netflix Background */
+body.netflix-background {
+    background: url('https://assets.nflxext.com/ffe/siteui/vlv3/bb3d9eaa-2736-4d32-b9ef-9a67047d41e7/d9cb3d58-e4b4-41c7-a9fb-1d12e93b9321/US-en-20230918-popsignuptwoweeks-perspective_alpha_website_small.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Container Styling */
+.container {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Heading */
+.container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Input Fields */
+.container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #333;
+    color: #fff;
+}
+
+/* Placeholder Styling */
+.container input::placeholder {
+    color: #bbb;
+}
+
+/* Button */
+.container button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    background: #e50914;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.container button:hover {
+    background: #b20710;
+}
+
+/* Message Styling */
+.message {
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+/* Link Styling */
+.container p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.container a {
+    color: #e50914;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}
+
+</style>
+<body class="netflix-background">
+    <div class="container">
+        <h2>Login</h2>
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+        <a href="{% url 'admin_login' %}">admin </a>
     </div>
-    
-    <!-- Right Navigation Button -->
-    <button class="carousel-button right" id="nextBtn">&#10095;</button>
-  </div>
-  
-  <script>
-    const track = document.getElementById('carouselTrack');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    // Calculate width of one carousel item (including margin)
-    const itemWidth = document.querySelector('.carousel-item').offsetWidth + 10;
-    const totalItems = document.querySelectorAll('.carousel-item').length;
-    let currentIndex = 0;
-    
-    nextBtn.addEventListener('click', () => {
-      if (currentIndex < totalItems - 1) {
-        currentIndex++;
-        updateCarousel();
-      }
-    });
-    
-    prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateCarousel();
-      }
-    });
-    
-    function updateCarousel() {
-      track.style.transform = 'translateX(' + (-currentIndex * itemWidth) + 'px)';
-    }
-  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="netflix-background">
+    <div class="container">
+        <h2>Admin Login</h2>
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p><a href="{% url 'home' %}">Back to Home</a></p>
+    </div>
 </body>
 </html>

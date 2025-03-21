@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}My Watchlist{% endblock %}
+
+{% block content %}
+<div style="padding: 80px 20px 20px 20px;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <h1 style="font-size: 32px; margin-bottom: 30px; color: white;">My Watchlist</h1>
+        
+        {% if watchlist_items %}
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;">
+                {% for item in watchlist_items %}
+                    <div style="background-color: #111; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+                        {% if item.video.thumb_image %}
+                            <img src="{{ item.video.thumb_image.url }}" alt="{{ item.video.title }}" style="width: 100%; height: 150px; object-fit: cover;">
+                        {% else %}
+                            <div style="width: 100%; height: 150px; background-color: #222; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-film" style="font-size: 48px; color: #444;"></i>
+                            </div>
+                        {% endif %}
+                        
+                        <div style="padding: 15px;">
+                            <h3 style="color: white; margin-bottom: 10px; font-size: 18px;">{{ item.video.title }}</h3>
+                            <p style="color: #999; font-size: 14px; margin-bottom: 15px;">{{ item.video.category.name }}</p>
+                            <div style="display: flex; gap: 10px;">
+                                <a href="{% url 'video_detail' item.video.id %}" style="flex: 1; background-color: #0099ff; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; text-align: center; font-size: 14px;">
+                                    <i class="fas fa-play"></i> Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 40px; background-color: #111; border-radius: 10px; color: white;">
+                <i class="fas fa-film" style="font-size: 48px; color: #444; margin-bottom: 20px;"></i>
+                <h2 style="margin-bottom: 15px;">Your watchlist is empty</h2>
+                <p style="color: #999; margin-bottom: 20px;">Add some videos to your watchlist to see them here</p>
+                <a href="{% url 'movies' %}" style="display: inline-block; background-color: #0099ff; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-search"></i> Browse Videos
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

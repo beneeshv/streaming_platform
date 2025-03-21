@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div style="padding: 80px 20px 20px 20px;">
+    <div style="max-width: 800px; margin: 0 auto; background-color: #111; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+        <h1 style="font-size: 32px; margin-bottom: 30px; color: white;">Edit Profile</h1>
+        
+        <form method="POST" enctype="multipart/form-data" style="color: white;">
+            {% csrf_token %}
+            
+            <div style="margin-bottom: 20px;">
+                <label for="profileimage" style="display: block; margin-bottom: 10px; color: #0099ff;">Profile Picture</label>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    {% if user.profileimage %}
+                        <img src="{{ user.profileimage.url }}" alt="Current Profile Picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                    {% endif %}
+                    <input type="file" name="profileimage" id="profileimage" accept="image/*" style="background-color: #222; padding: 10px; border-radius: 5px; border: 1px solid #333;">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="name" style="display: block; margin-bottom: 10px; color: #0099ff;">Name</label>
+                <input type="text" name="name" id="name" value="{{ user.name }}" required
+                    style="width: 100%; padding: 12px; background-color: #222; border: 1px solid #333; border-radius: 5px; color: white;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="email" style="display: block; margin-bottom: 10px; color: #0099ff;">Email</label>
+                <input type="email" name="email" id="email" value="{{ user.email }}" required
+                    style="width: 100%; padding: 12px; background-color: #222; border: 1px solid #333; border-radius: 5px; color: white;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="phone" style="display: block; margin-bottom: 10px; color: #0099ff;">Phone</label>
+                <input type="tel" name="phone" id="phone" value="{{ user.phone }}" required
+                    style="width: 100%; padding: 12px; background-color: #222; border: 1px solid #333; border-radius: 5px; color: white;">
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <label for="address" style="display: block; margin-bottom: 10px; color: #0099ff;">Address</label>
+                <textarea name="address" id="address" rows="3" required
+                    style="width: 100%; padding: 12px; background-color: #222; border: 1px solid #333; border-radius: 5px; color: white;">{{ user.address }}</textarea>
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <button type="submit" style="background-color: #0099ff; color: white; padding: 12px 24px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a href="{% url 'user_details' %}" style="background-color: #444; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

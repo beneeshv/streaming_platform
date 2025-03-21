@@ -1,102 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotflix</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-  
-  body {
-    background-color: #000;
-    color: white;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center; /* Keep content centered */
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 1200px;
-}
-
-.welcome-section {
-    max-width: 40%;
-    text-align: left;
-}
-
-h1 {
-    font-size: 2.5em;
-}
-
-.sign-in {
-    background-color: #aaa;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.sign-in:hover {
-    background-color: #888;
-}
-
-.movies-section {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    max-width: 55%;
-    margin-left: 15%; /* Move images to the right */
-}
-
-.movie {
-    width: 100%;
-    height: 180px; /* Set a uniform height */
-    overflow: hidden;
-}
-
-.movie img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image fills the space without distortion */
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.movie img:hover {
-    transform: scale(1.1);
-}
-
-
-
-
-    </style>
-</head>
-<body>
+<body class="netflix-background">
     <div class="container">
-        <div class="welcome-section">
-            <h1>Welcome to Hotflix.</h1>
-            <p>Join Hotflix to watch the latest movies, exclusive TV shows, and top-rated originals.</p>
-            <button class="sign-in">To join Hotflix, sign in.</button>
-        </div>
-        <div class="movies-section">
-            <div class="movie"><img src="https://www.mirchi9.com/wp-content/uploads/2022/06/Vikram-Telugu-Movie-Review.jpg" alt="Movie 1"></div>
-            <div class="movie"><img src="https://4kwallpapers.com/images/wallpapers/mufasa-the-lion-king-2024-movies-disney-5k-1536x2048-8781.jpg" alt="Movie 2"></div>
-            <div class="movie"><img src="https://wallpapercave.com/wp/wp7117162.jpg" alt="Movie 3"></div>
-            <div class="movie"><img src="https://wallpaperaccess.com/full/3395487.jpg" alt="Movie 4"></div>
-            <div class="movie"><img src="https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2024/02/23110248/Deadpool-Wolverine-Weapon-X-Traction-Featured.jpg" alt="Movie 5"></div>
-            <div class="movie"><img src="https://wallpapercg.com/download/iron-man-5120x2880-17841.jpg" alt="Movie 6"></div>
-        </div>
+        <h2>Register</h2>
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone" placeholder="Phone" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="address" placeholder="Address">
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
     </div>
-    <script src="script.js"></script>
-</body>
-</html>

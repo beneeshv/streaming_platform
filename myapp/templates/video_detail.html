@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +27,8 @@
         align-items: center;
         padding: 5%;
         position: relative;
+        border-radius: 20px;
+        
     }
 
     .video-details {
@@ -54,7 +55,8 @@
 
     .action-buttons {
         display: flex;
-        align-items: center;
+        gap: 15px;
+        margin: 20px 0;
     }
 
     .prime-button {
@@ -78,24 +80,91 @@
     }
 
     .list-button {
-        background-color: rgba(255, 255, 255, 0.3);
-        color: white;
-        padding: 15px 20px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 8px;
         text-decoration: none;
-        transition: 0.3s;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
     }
 
-    .list-button:hover {
-        background-color: rgba(255, 255, 255, 0.5);
+    .list-button .icon {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
     }
 
-    .icon {
-        margin-right: 8px;
+    .list-button .button-text {
+        display: none;
+        white-space: nowrap;
+    }
+
+    .list-button:hover .button-text {
+        display: inline;
+    }
+
+    .list-button:hover .icon {
+        transform: scale(1.2);
+    }
+
+    .add-button {
+        background: #2d2d2dc3;
+        border: 1px solid #2d2d2daf;
+        color: #fefffe;
+    }
+
+    .add-button:hover {
+        background: #2d2d2dbb;
+        transform: translateY(-2px);
+    }
+
+    .remove-button {
+        background: #2d2d2db6;
+        border: 1px solid #2d2d2da0;
+        color: #fbf9f9;
+    }
+
+    .remove-button:hover {
+        background: rgba(220, 53, 69, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .rate-button {
+        background: #2d2d2dcd;
+        border: 1px solid #2d2d2dbe;
+        color: #fefefc;
+    }
+
+    .rate-button:hover {
+        background: rgba(255, 215, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Tooltip styles */
+    .list-button::after {
+        content: attr(title);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .list-button:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-5px);
     }
 
     /* Video Player */
@@ -178,6 +247,7 @@
 
 .related-container {
     margin: 2rem 5%;
+    
 }
 
 .related-container h2 {
@@ -215,29 +285,392 @@
     margin-bottom: 8px;
 }
 
+/* Updated Rating Styles */
+.rating-section {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rating-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.rating-stars .star {
+    font-size: 20px;
+    color: #ddd;
+    transition: color 0.3s;
+}
+
+.rating-stars .star.filled {
+    color: #ffd700;
+}
+
+.rating-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rating-value {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.rating-count {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.user-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-rating span {
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.star-rating-display {
+    display: flex;
+    gap: 2px;
+}
+
+.star-rating-display .star {
+    font-size: 16px;
+    color: #ddd;
+}
+
+.star-rating-display .star.filled {
+    color: #ffd700;
+}
+
+.login-to-rate {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.login-to-rate a {
+    color: #1f80e0;
+    text-decoration: none;
+}
+
+.login-to-rate a:hover {
+    text-decoration: underline;
+}
+
+/* Message Styles */
+.messages {
+    margin: 20px 0;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid #ffc107;
+}
+
+.alert-error {
+    background-color: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+   
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            position: absolute;
+            width: 96%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black */
+            backdrop-filter: blur(5px); /* Blur effect */
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            margin-right: 80px;
+        }
+        .logo span {
+            color: #0099ff;
+        }
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-right: 45px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.nav-links .divider {
+    width: 1px;
+    height: 24px;
+    background-color: #555;
+    margin: 0 12px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.search-icon, .language-selector, .menu-icon, .profile-icon {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.join-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: 5px 2px;
+    
+}
+
+.join-btn:hover {
+    background-color: #005bb5;
+}
+.profile-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 30px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 150px;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.dropdown-menu p {
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: white;
+    padding: 5px 0;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    color: #1dbf73;
+}
+
+.profile-menu:hover .dropdown-menu {
+    display: block;
+}
+
 
 </style>
 <body>
-    {% block content %}
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">HOT <span>Flix</span></div>
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'movies' %}">Movies</a>
+                </li>
+               
+                
+                <li><a href="">Trailer cuts</a></li>
+                <li><a href="">Feedback</a></li>
+                <li class=""></li>
+                <div class="divider"></div>
+            <li> <a href="#"> Subscriptions</a></li>
+            </div>
+            </ul>
+        </div>
+       
+        
+        <div class="nav-right">
+            <a href="{% url 'search' %}" class="search-icon">
+                <i class="fas fa-search"></i>
+            </a>
+            <div class="profile-menu">
+                <img src="https://www.kindpng.com/picc/m/173-1731325_person-icon-png-transparent-png.png" alt="Profile" class="profile-icon">
+                <div class="dropdown-menu">
+                    <ul> <li><a href="{% url 'user_details' %}">user</a></li>
+                        <li><a href="{% url 'watchlist' %}">watchlist</a>
+                    </ul> 
+            
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}">Sign out</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">Sign in</a>
+                    {% endif %}
+            
+                    
+                </div>
+            </div>
+            
+            
+            <button class="join-btn">Join Flix</button>
+            
+        </div>
+    </nav>
+
+    
     <div class="video-container">
         <div class="video-details">
             <h1 class="video-title">{{ video.title }}</h1>
             <p class="video-info">96% Match  |  2019  |  MA 15+  |  5 Seasons</p>
             <p class="video-description">{{ video.description }}</p>
 
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Rating Section -->
+            <div class="rating-section">
+                <div class="rating-info">
+                    <div class="rating-stars">
+                        {% for i in "12345" %}
+                            <span class="star {% if i|add:'0' <= avg_rating %}filled{% endif %}">★</span>
+                        {% endfor %}
+                    </div>
+                    <div class="rating-details">
+                        <span class="rating-value">{{ avg_rating }}/5</span>
+                        <span class="rating-count">({{ total_ratings }} ratings)</span>
+                    </div>
+                </div>
+                
+                {% if user.is_authenticated and user_rating %}
+                    <div class="user-rating">
+                        <span>Your Rating:</span>
+                        <div class="star-rating-display">
+                            {% for i in "12345" %}
+                                <span class="star {% if i|add:'0' <= user_rating %}filled{% endif %}">★</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
             <div class="action-buttons">
                 <button class="prime-button" onclick="playVideo()">
                     <i class="fas fa-play icon"></i> Watch Now
                 </button>
 
-                <button class="list-button">
-                    <a href="" class="list-button">
-                        <i class="fas fa-plus icon"></i> +
+                {% if user.is_authenticated %}
+                    {% if in_watchlist %}
+                        <a href="{% url 'remove_from_watchlist' video.id %}" class="list-button remove-button" title="Remove from Watchlist">-
+                            <i class="fas fa-minus icon"></i>
+                            <span class="button-text">Remove from Watchlist</span>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'add_to_watchlist' video.id %}" class="list-button add-button" title="Add to Watchlist">+
+                            <i class="fas fa-plus icon"></i>
+                            <span class="button-text">Add to Watchlist</span>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'rate_video' video.id %}" class="list-button rate-button">
+                        {% if user_rating %}
+                            <i class="fas fa-check icon"></i> Rating Submitted
+                        {% else %}
+                            <i class="fas fa-star icon"></i> Rate Video
+                        {% endif %}
                     </a>
-                    
-                </button>
-                
-                
+                {% else %}
+                    <a href="{% url 'login' %}" class="list-button">
+                        <i class="fas fa-plus icon"></i> Login to Add to Watchlist
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -274,12 +707,6 @@
         </div>
     </div>
 
-    <!-- Video Player Overlay Section -->
-    <!-- ... existing video player code ... -->
-
-
-
-
     <script>
        function playVideo() {
     document.getElementById('videoPlayer').style.display = 'block';
@@ -294,7 +721,22 @@ function closeVideo() {
     document.getElementById('video').currentTime = 0;  // Reset video to the beginning
 }
 
+// Auto-hide messages after 5 seconds
+document.addEventListener('DOMContentLoaded', function() {
+    const messages = document.querySelectorAll('.alert');
+    messages.forEach(function(message) {
+        setTimeout(function() {
+            message.style.opacity = '0';
+            setTimeout(function() {
+                message.remove();
+            }, 500);
+        }, 5000);
+    });
+});
+
     </script>
-{% endblock %}
+
 </body>
 </html>
+
+

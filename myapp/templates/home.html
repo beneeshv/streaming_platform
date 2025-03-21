@@ -29,12 +29,14 @@ body {
 }
 
 .logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    margin-right: 80px;
-    margin-left: 60px;
-}
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            margin-right: 80px;
+        }
+        .logo span {
+            color: #0099ff;
+        }
 
 .nav-links {
     list-style: none;
@@ -78,9 +80,11 @@ body {
     border: none;
     padding: 10px 16px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 10px;
     font-weight: bold;
     cursor: pointer;
+    box-sizing: 5px 2px;
+    
 }
 
 .join-btn:hover {
@@ -339,6 +343,7 @@ body {
     height: 30px;
     border-radius: 50%;
     cursor: pointer;
+    margin-right: 30px;
 }
 
 .dropdown-menu {
@@ -430,59 +435,224 @@ h1 {
     margin-left: 15%; /* Move images to the right */
 }
 
-.movie {
-    width: 100%;
-    height: 180px; /* Set a uniform height */
-    overflow: hidden;
+body {
+    background-color: #000;
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
-.movie img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image fills the space without distortion */
-    border-radius: 10px;
+/* Category Section */
+.category-heading {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 20px;
+}
+
+/* Grid Layout */
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+/* Category Card */
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
     transition: transform 0.3s ease-in-out;
 }
 
-.movie img:hover {
+.category-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Hover Effect */
+.category-card:hover {
     transform: scale(1.1);
 }
 
+/* Overlay Text */
+.category-name {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
 
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+}
 
+.search-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.search-button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.search-button:hover {
+    transform: scale(1.1);
+}
+
+.search-button i {
+    font-size: 1.2rem;
+}
+
+.search-icon {
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.search-icon:hover {
+    color: #1f80e0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.search-icon i {
+    font-size: 1.2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin: 30px 0 20px;
+    color: #fff;
+}
+
+.no-videos {
+    text-align: center;
+    color: #aaa;
+    font-size: 1.1rem;
+    padding: 20px;
+    grid-column: 1 / -1;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.video-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.video-card:hover {
+    transform: scale(1.05);
+}
+
+.video-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.video-info {
+    padding: 15px;
+}
+
+.video-title {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.video-meta {
+    font-size: 0.9rem;
+    color: #aaa;
+}
 
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-left">
-            <span class="logo">HOT <strong>Flix</strong></span>
+            <div class="logo">HOT <span>Flix</span></div>
             <ul class="nav-links">
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'movies' %}">Movies</a>
                 </li>
-                <li><a href="{% url 'trailer' %}">Trailer cuts</a></li>
-                <li><a href="{% url 'favorite_list' %}">fav</a></li>
-                <li class="divider"></li>
+               
+                
+                <li><a href="">Trailer cuts</a></li>
+                <li><a href="">Feedback</a></li>
+                <li class=""></li>
+                <div class="divider"></div><br>
                 <li><a href="#">Subscriptions</a></li>
             </ul>
         </div>
+       
         
         <div class="nav-right">
-            <span class="search-icon">🔍</span>
+            <a href="{% url 'search' %}" class="search-icon">
+                <i class="fas fa-search"></i>
+            </a>
             <div class="profile-menu">
                 <img src="https://www.kindpng.com/picc/m/173-1731325_person-icon-png-transparent-png.png" alt="Profile" class="profile-icon">
                 <div class="dropdown-menu">
-                    <p>YOUR ACCOUNT</p>
-                    <a href="#">Sign in</a>
-                    <a href="#">Help</a>
-                    <a href="#">See anywhere</a>
+                    <ul> <li><a href="{% url 'user_details' %}">user</a></li>
+                        <li><a href="{% url 'watchlist' %}">watchlist</a>
+                    </ul> 
+            
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}">Sign out</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">Sign in</a>
+                    {% endif %}
+            
+                    
                 </div>
             </div>
             
-            <button class="join-btn">Join Prime</button>
-            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+            
+            <button class="join-btn">Join Flix</button>
+            
         </div>
     </nav>
 
@@ -496,43 +666,51 @@ h1 {
     <!-- BANNER STARTS HERE -->
     <div class="welcome-banner">
         <div class="banner-content">
-            <h1>Welcome to Prime Video</h1>
-            <p>Watch the latest movies, TV shows, and Amazon Originals anytime, anywhere.</p>
-            <button class="join-btn">Sign in to join Prime</button>
+            <h1>Welcome to Hot Flix</h1>
+            <p>Watch the latest movies For free</p>
+            <button class="join-btn">Sign in to join flix</button>
         </div>
     </div>
 
 
 
 
-    <div class="container">
-        <div class="welcome-section">
-            <h1>Welcome to Hotflix.</h1>
-            <p>Join Hotflix to watch the latest movies, exclusive TV shows, and top-rated originals.</p>
-            <button class="sign-in">To join Hotflix, sign in.</button>
-        </div>
-        <div class="movies-section">
-            <div class="movie"><img src="https://www.mirchi9.com/wp-content/uploads/2022/06/Vikram-Telugu-Movie-Review.jpg" alt="Movie 1"></div>
-            <div class="movie"><img src="https://4kwallpapers.com/images/wallpapers/mufasa-the-lion-king-2024-movies-disney-5k-1536x2048-8781.jpg" alt="Movie 2"></div>
-            <div class="movie"><img src="https://wallpapercave.com/wp/wp7117162.jpg" alt="Movie 3"></div>
-            <div class="movie"><img src="https://wallpaperaccess.com/full/3395487.jpg" alt="Movie 4"></div>
-            <div class="movie"><img src="https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2024/02/23110248/Deadpool-Wolverine-Weapon-X-Traction-Featured.jpg" alt="Movie 5"></div>
-            <div class="movie"><img src="https://wallpapercg.com/download/iron-man-5120x2880-17841.jpg" alt="Movie 6"></div>
-        </div>
-    </div>
+    
 
 
   
 
-    <h1>Video Categories</h1>
-
+    <h1>Browse Categories</h1>
+<div class="category-container">
     {% for category in categories %}
-        <div class="category">
-            <h2><a href="{% url 'category_videos' category.id %}">{{ category.name }}</a></h2>
+        <div class="category-card">
+            <a href="{% url 'category_videos' category.id %}">
+                <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                <div class="overlay">
+                    <h3>{{ category.name }}</h3>
+                </div>
+            </a>
         </div>
     {% empty %}
         <p>No categories found.</p>
     {% endfor %}
+</div>
+
+<!-- Recently Watched Section -->
+<h2 class="section-title">Recently Watched</h2>
+<div class="video-grid">
+    {% for video in recent_videos %}
+        <a href="{% url 'video_detail' video.id %}" class="video-card">
+            <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}">
+            <div class="video-info">
+                <h3 class="video-title">{{ video.title }}</h3>
+                <p class="video-meta">{{ video.category.name }}</p>
+            </div>
+        </a>
+    {% empty %}
+        <p class="no-videos">No recently watched videos</p>
+    {% endfor %}
+</div>
 
 </body>
 </html>

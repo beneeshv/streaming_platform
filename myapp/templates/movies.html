@@ -1,9 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movies Page</title>
+  <title>{% block title %}movies{% endblock %}</title>
+</head>
   <style>
   
  /* General Styles */
@@ -130,7 +133,7 @@ body {
     position: absolute;
     bottom: 15%;
     left: 5%;
-    color: #4f939c;
+    color: #8921ab;
     max-width: 50%;
     z-index: 2;
 }
@@ -296,7 +299,6 @@ button.carousel-btn:hover {
   </style>
 </head>
 <body>
-
     <div class="carousel-container">
         <div class="carousel">
             <!-- Slide 1 -->
@@ -310,18 +312,18 @@ button.carousel-btn:hover {
             </div>
             <!-- Slide 2 -->
             <div class="slide">
-                <img src="https://wallpapercg.com/download/iron-man-5120x2880-17841.jpg" alt="Realme GT">
+                <img src="https://images.wallpapersden.com/image/download/batman-beyond-movie-concept-art_bmdna26UmZqaraWkpJRoZ2ZtrWZoaGs.jpg" alt="Realme GT">
                 <div class="slide-text1">
-                    <h2>𝕀𝕣𝕠𝕟 𝕄𝕒𝕟 𝟛</h2>
+                    <h2>𝕿𝖍𝖊 𝕯𝖆𝖗𝖐 𝕶𝖓𝖎𝖌𝖍𝖙</h2>
                     <p class="text2">96% Match  |  2019  |  MA 15+  |  5 Seasons<br>Start From Rs 30000</p>
                    
                 </div>
             </div>
             <!-- Slide 3 -->
             <div class="slide">
-                <img src="http://hdqwalls.com/wallpapers/ferdinand-2017-movie-4k-n1.jpg" alt="Realme Watch">
+                <img src="https://cdn.wallpapersafari.com/56/86/nM9ysU.jpg" alt="Realme Watch">
                 <div class="slide-text2">
-                    <h2>New Prminum Watches</h2>
+                    <h2>Available new movies</h2>
                     <p class="text2">1.8" Ultra-Large Display<br>14 Days Battery Life<br>GPS Tracking</p>
                    
                 </div>
@@ -369,7 +371,7 @@ button.carousel-btn:hover {
     </script>
    
 
-  <h1>NEW MOVIE</h1>
+  <h1>NEW MOVIE</h1><br>
   {% for category in categories %}
     <div class="category">
       <!-- Category Name (clickable) -->
@@ -398,3 +400,4 @@ button.carousel-btn:hover {
   {% endfor %}
 </body>
 </html>
+{% endblock %}

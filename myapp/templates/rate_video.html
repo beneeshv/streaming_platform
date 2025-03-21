@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate {{ video.title }} - Prime Video</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    body {
+        background-color: #000000;
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .rating-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .video-info {
+        margin-bottom: 30px;
+    }
+
+    .video-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .video-thumbnail {
+        width: 200px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .rating-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        font-size: 40px;
+        color: #ddd;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label {
+        color: #ffd700;
+    }
+
+    .submit-button {
+        background-color: #1f80e0;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    .submit-button:hover {
+        background-color: #1669b2;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 20px;
+        color: #aaa;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .back-button:hover {
+        color: white;
+    }
+
+    .messages {
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .alert-error {
+        background-color: rgba(220, 53, 69, 0.2);
+        color: #dc3545;
+        border: 1px solid #dc3545;
+    }
+</style>
+<body>
+    <div class="rating-container">
+        <div class="video-info">
+            <h1 class="video-title">{{ video.title }}</h1>
+            <img src="{{ video.thumb_image.url }}" alt="{{ video.title }}" class="video-thumbnail">
+        </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'rate_video' video.id %}" class="rating-form">
+            {% csrf_token %}
+            <div class="star-rating">
+                {% for i in "54321" %}
+                <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}" 
+                       {% if user_rating == i|add:"0" %}checked{% endif %}>
+                <label for="star{{ i }}">★</label>
+                {% endfor %}
+            </div>
+            <button type="submit" class="submit-button">Submit Rating</button>
+        </form>
+
+        <a href="{% url 'video_detail' video.id %}" class="back-button">Back to Video Details</a>
+    </div>
+</body>
+</html> 

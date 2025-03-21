@@ -39,8 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    
 ]
+
+# Custom User Model
+AUTH_USER_MODEL = 'myapp.UserReg'
+
+# Authentication Backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Login/Logout URLs
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,3 +152,7 @@ media_url='/media/'
 
 
 TMDB_API_KEY = "96f523874d0ba192b68336b4b613ccf1"
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")  # Ensure this directory exists
+]
