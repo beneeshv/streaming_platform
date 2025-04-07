@@ -1,41 +1,119 @@
 {% extends 'base.html' %}
 
-{% block title %}User Profile{% endblock %}
+{% block title %}User Details{% endblock %}
 
 {% block content %}
-<div style="padding: 80px 20px 20px 20px;">
-    <div style="max-width: 800px; margin: 0 auto; background-color: #111; border-radius: 10px; padding: 30px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
-        <div style="display: flex; align-items: start; gap: 30px;">
-            <div style="flex-shrink: 0;">
-                {% if user.profileimage %}
-                    <img src="{{ user.profileimage.url }}" alt="Profile Picture" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 3px solid #0099ff;">
-                {% else %}
-                    <div style="width: 200px; height: 200px; border-radius: 50%; background-color: #0099ff; display: flex; align-items: center; justify-content: center; font-size: 72px; color: white;">
-                        {{ user.name|make_list|first|upper }}
-                    </div>
-                {% endif %}
+<div class="user-details-container">
+    <h1>User Details</h1>
+    
+    <div class="user-info">
+        <h2>Personal Information</h2>
+        <p><strong>Name:</strong> {{ user.get_full_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone|default:"Not provided" }}</p>
+        <p><strong>Address:</strong> {{ user.address|default:"Not provided" }}</p>
+    </div>
+
+    <div class="subscription-info">
+        <h2>Subscription Details</h2>
+        {% if subscription %}
+            <div class="subscription-active">
+                <p><strong>Plan Type:</strong> {{ subscription.plan_type|title }}</p>
+                <p><strong>Start Date:</strong> {{ subscription.start_date|date:"F j, Y" }}</p>
+                <p><strong>End Date:</strong> {{ subscription.end_date|date:"F j, Y" }}</p>
+                <p><strong>Status:</strong> <span class="status-active">Active</span></p>
+                <p><strong>Payment Status:</strong> <span class="status-completed">Completed</span></p>
             </div>
-            <div style="flex-grow: 1;">
-                <h1 style="font-size: 32px; margin-bottom: 20px; color: white;">{{ user.name }}</h1>
-                <div style="background-color: #222; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-                    <div style="margin-bottom: 15px;">
-                        <label style="color: #0099ff; display: block; margin-bottom: 5px;">Email</label>
-                        <div style="color: white;">{{ user.email }}</div>
-                    </div>
-                    <div style="margin-bottom: 15px;">
-                        <label style="color: #0099ff; display: block; margin-bottom: 5px;">Phone</label>
-                        <div style="color: white;">{{ user.phone }}</div>
-                    </div>
-                    <div>
-                        <label style="color: #0099ff; display: block; margin-bottom: 5px;">Address</label>
-                        <div style="color: white;">{{ user.address }}</div>
-                    </div>
-                </div>
-                <a href="{% url 'edit_profile' %}" style="display: inline-block; background-color: #0099ff; color: white; padding: 12px 24px; border-radius: 5px; text-decoration: none; font-weight: bold;">
-                    <i class="fas fa-edit"></i> Edit Profile
-                </a>
+        {% else %}
+            <div class="subscription-inactive">
+                <p>No active subscription</p>
+                <a href="{% url 'subscription' %}" class="subscribe-button">Subscribe Now</a>
             </div>
-        </div>
+        {% endif %}
+    </div>
+
+    <div class="action-buttons">
+        <a href="{% url 'edit_profile' %}" class="edit-button">Edit Profile</a>
     </div>
 </div>
+
+<style>
+    .user-details-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        color: white;
+    }
+
+    .user-info, .subscription-info {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+    }
+
+    h1, h2 {
+        color: #1f80e0;
+        margin-bottom: 20px;
+    }
+
+    p {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+
+    .subscription-active {
+        color: #28a745;
+    }
+
+    .subscription-inactive {
+        color: #dc3545;
+    }
+
+    .status-active {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .status-completed {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .subscribe-button {
+        display: inline-block;
+        background: #1f80e0;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 10px;
+        transition: background 0.3s;
+    }
+
+    .subscribe-button:hover {
+        background: #1669b2;
+    }
+
+    .edit-button {
+        display: inline-block;
+        background: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background 0.3s;
+    }
+
+    .edit-button:hover {
+        background: #218838;
+    }
+
+    .action-buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+</style>
 {% endblock %} 

@@ -9,7 +9,7 @@
 </head>
 <style>
     body {
-        background-color: #0f171e;
+        background-color: #000000;
         color: white;
         font-family: Arial, sans-serif;
         margin: 0;
@@ -158,18 +158,48 @@
         font-size: 0.8rem;
         color: #aaa;
     }
+
+    .error-message {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+        border: 1px solid rgba(220, 53, 69, 0.2);
+        text-align: center;
+    }
+
+    .suggestion {
+        color: #888;
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+
+    .search-input:invalid {
+        border-color: #dc3545;
+    }
+
+    .search-input:valid {
+        border-color: #28a745;
+    }
 </style>
 <body>
     <div class="search-container">
         <div class="search-header">
             <h1>Search Movies & TV Shows</h1>
-            <form class="search-box" method="GET" action="{% url 'search' %}">
-                <input type="text" name="q" class="search-input" placeholder="Search for movies, TV shows..." value="{{ query }}">
+            <form class="search-box" method="GET" action="{% url 'search' %}" id="searchForm">
+                <input type="text" name="q" class="search-input" placeholder="Search for movies, TV shows..." value="{{ query }}" required>
                 <button type="submit" class="search-button">
                     <i class="fas fa-search"></i> Search
                 </button>
             </form>
         </div>
+
+        {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+        {% endif %}
 
         {% if query %}
             <h2 class="section-title">Search Results for "{{ query }}"</h2>
@@ -188,6 +218,7 @@
             {% else %}
                 <div class="no-results">
                     <p>No results found for "{{ query }}"</p>
+                    <p class="suggestion">Try checking for typos or using more general terms</p>
                 </div>
             {% endif %}
         {% endif %}
@@ -209,5 +240,28 @@
             </div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = searchForm.querySelector('input[name="q"]');
+
+        // Prevent form submission if input is empty
+        searchForm.addEventListener('submit', function(e) {
+            if (!searchInput.value.trim()) {
+                e.preventDefault();
+                searchInput.classList.add('error');
+                setTimeout(() => {
+                    searchInput.classList.remove('error');
+                }, 1000);
+            }
+        });
+
+        // Clear error state when user starts typing
+        searchInput.addEventListener('input', function() {
+            this.classList.remove('error');
+        });
+    });
+    </script>
 </body>
 </html> 

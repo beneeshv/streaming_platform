@@ -1,17 +1,121 @@
-<body class="netflix-background">
-    <div class="container">
-        <h2>Register</h2>
-        {% for message in messages %}
-            <p class="message">{{ message }}</p>
-        {% endfor %}
-        <form method="POST">
-            {% csrf_token %}
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="text" name="phone" placeholder="Phone" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="text" name="address" placeholder="Address">
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Event Cards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.event-container {
+    display: flex;
+    gap: 15px;
+}
+
+.event-card {
+    width: 350px;
+    height: 140px;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.tennis {
+    background: linear-gradient(to right, #2a0e75, #3b177f);
+}
+
+.cricket {
+    background: linear-gradient(to right, #0c4a2f, #1b773f);
+}
+
+.event-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-logo {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+h2 span {
+    color: yellow;
+}
+
+.round, .match-type {
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.event-time {
+    background: white;
+    color: black;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    width: fit-content;
+    margin-top: 5px;
+}
+
+.teams {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.teams img {
+    width: 40px;
+    height: auto;
+}
+
+</style>
+<body>
+    <div class="event-container">
+        <!-- Tennis Match Card -->
+        <div class="event-card tennis">
+            <div class="event-content">
+                <img src="https://wallpaperaccess.com/full/681739.jpg" alt="ATP Masters" class="event-logo">
+                <h2>Musetti <span>vs</span> Djokovic</h2>
+                <p class="round">Round 4</p>
+                <div class="event-time">Tonight 12:40 AM IST</div>
+            </div>
+        </div>
+
+        <!-- Cricket Match Card -->
+        <div class="event-card cricket">
+            <div class="event-content">
+                <div class="teams">
+                    <img src="https://images.hdqwalls.com/download/movie-wall-e-ad-3840x2160.jpg" alt="New Zealand Cricket">
+                    <span>vs</span>
+                    <img src="pcb_logo.png" alt="PCB">
+                </div>
+                <p class="match-type">5th T20I</p>
+                <div class="event-time">26th Mar 11:45 AM IST</div>
+            </div>
+        </div>
     </div>
+</body>
+</html>

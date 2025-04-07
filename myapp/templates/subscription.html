@@ -1,0 +1,436 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="subscription-hero">
+    <div class="hero-content">
+        <h1>Welcome to Prime Video</h1>
+        <p>Join Prime to watch the latest movies, TV shows and award-winning Amazon Originals</p>
+    </div>
+</div>
+
+<div class="subscription-container">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="plans-container">
+        <div class="plan-card">
+            <div class="plan-header">
+                <h2>Monthly Plan</h2>
+                <div class="price">₹1<span>/month</span></div>
+            </div>
+            <ul class="features">
+                <li><i class="fas fa-check"></i> Unlimited Movies & TV Shows</li>
+                <li><i class="fas fa-check"></i> HD & 4K Quality</li>
+                <li><i class="fas fa-check"></i> Ad-free Experience</li>
+                <li><i class="fas fa-check"></i> Offline Viewing</li>
+            </ul>
+            <button class="subscribe-btn" onclick="startPayment('monthly')">Subscribe Now</button>
+        </div>
+
+        <div class="plan-card featured">
+            <div class="best-value">Best Value</div>
+            <div class="plan-header">
+                <h2>Annual Plan</h2>
+                <div class="price">₹10<span>/year</span></div>
+                <div class="savings">Save ₹2</div>
+            </div>
+            <ul class="features">
+                <li><i class="fas fa-check"></i> All Monthly Plan Features</li>
+                <li><i class="fas fa-check"></i> Save ₹2 Annually</li>
+                <li><i class="fas fa-check"></i> Priority Support</li>
+                <li><i class="fas fa-check"></i> Early Access to New Releases</li>
+            </ul>
+            <button class="subscribe-btn" onclick="startPayment('annual')">Subscribe Now</button>
+        </div>
+    </div>
+
+    <div class="benefits-section">
+        <h2>Prime Video Benefits</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <i class="fas fa-film"></i>
+                <h3>Exclusive Content</h3>
+                <p>Access to award-winning Amazon Originals and exclusive content</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Watch Anywhere</h3>
+                <p>Stream on your phone, tablet, laptop, and TV</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-download"></i>
+                <h3>Download & Go</h3>
+                <p>Download videos to watch offline</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-crown"></i>
+                <h3>Premium Experience</h3>
+                <p>Ad-free streaming in HD and 4K quality</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function showError(message) {
+    const messagesDiv = document.querySelector('.messages');
+    if (!messagesDiv) return;
+    
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert alert-error';
+    alertDiv.textContent = message;
+    messagesDiv.appendChild(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 5000);
+}
+
+function startPayment(planType) {
+    const button = event.target;
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+    const csrftoken = getCookie('csrftoken');
+
+    fetch('/subscription/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': csrftoken
+        },
+        body: `plan_type=${planType}`
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.error || 'Payment failed');
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        
+        const options = {
+            key: '{{ RAZORPAY_KEY_ID }}',
+            amount: data.amount,
+            currency: data.currency,
+            order_id: data.order_id,
+            name: 'Prime Video Subscription',
+            description: `${planType === 'monthly' ? 'Monthly' : 'Annual'} Plan`,
+            handler: function(response) {
+                document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+                document.getElementById('razorpay_signature').value = response.razorpay_signature;
+                document.getElementById('payment-form').submit();
+            },
+            prefill: {
+                email: '{{ request.user.email }}',
+                contact: '{{ request.user.phone }}'
+            },
+            theme: {
+                color: '#00a8e1'
+            },
+            modal: {
+                ondismiss: function() {
+                    button.disabled = false;
+                    button.innerHTML = 'Subscribe Now';
+                }
+            }
+        };
+
+        try {
+            const rzp = new Razorpay(options);
+            rzp.on('payment.failed', function(response) {
+                console.error('Payment failed:', response.error);
+                showError('Payment failed: ' + response.error.description);
+                button.disabled = false;
+                button.innerHTML = 'Subscribe Now';
+            });
+            rzp.open();
+        } catch (error) {
+            console.error('Razorpay initialization error:', error);
+            showError('Failed to initialize payment. Please try again.');
+            button.disabled = false;
+            button.innerHTML = 'Subscribe Now';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError(error.message || 'Failed to create payment order. Please try again.');
+        button.disabled = false;
+        button.innerHTML = 'Subscribe Now';
+    });
+}
+</script>
+
+<form id="payment-form" action="{% url 'payment_success' %}" method="POST" style="display: none;">
+    {% csrf_token %}
+    <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+    <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+    <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+</form>
+
+<style>
+.subscription-hero {
+    background: linear-gradient(to right, #000000, #000000e9, #0f171e1a, #0f171e0f),
+                linear-gradient(to top, #000000ff, #00000000, #0f171e1a, #0f171e00),
+                url('{% static "images/subscription-hero.jpg" %}') no-repeat center center/cover;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    color: #aaa;
+}
+
+.subscription-container {
+    max-width: 1200px;
+    margin: -100px auto 40px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-error {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.plans-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.plan-card {
+    background: #111;
+    border-radius: 10px;
+    padding: 40px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.plan-card.featured {
+    border: 2px solid #00a8e1;
+}
+
+.best-value {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00a8e1;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.plan-header {
+    margin-bottom: 30px;
+}
+
+.plan-header h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.price span {
+    font-size: 1rem;
+    color: #aaa;
+}
+
+.savings {
+    color: #28a745;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+.features li {
+    margin: 10px 0;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.features li i {
+    color: #00a8e1;
+    margin-right: 10px;
+}
+
+.subscribe-btn {
+    background: #00a8e1;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.subscribe-btn:hover {
+    background: #0099cc;
+}
+
+.subscribe-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+.benefits-section {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.benefits-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.benefit-card {
+    background: #111;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-card i {
+    font-size: 2.5rem;
+    color: #00a8e1;
+    margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.benefit-card p {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .plans-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .plan-card {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+}
+</style>
+{% endblock %} 

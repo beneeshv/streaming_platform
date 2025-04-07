@@ -156,3 +156,23 @@ TMDB_API_KEY = "96f523874d0ba192b68336b4b613ccf1"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")  # Ensure this directory exists
 ]
+
+# Razorpay Configuration
+RAZORPAY_KEY_ID = 'rzp_test_TD9tW5ogFOCdh6'  # Test key
+RAZORPAY_KEY_SECRET = 'WXGync7dm5K00dJZAUzxBWMe'  # Test secret
+
+# Subscription Plans (amounts in paise)
+SUBSCRIPTION_PLANS = {
+    'monthly': {
+        'name': 'Monthly Plan',
+        'amount': 100,  # ₹1 in paise
+        'currency': 'INR',
+        'duration_days': 30
+    },
+    'annual': {
+        'name': 'Annual Plan',
+        'amount': 1000,  # ₹10 in paise
+        'currency': 'INR',
+        'duration_days': 365
+    }
+}

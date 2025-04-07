@@ -1,155 +1,183 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+{% extends 'base.html' %}
+
+{% block title %}Admin Login - HOT Flix{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <div class="auth-header">
+            <h1>Admin Portal</h1>
+            <p>Sign in to manage your platform</p>
+        </div>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="auth-button">
+                <i class="fas fa-user-shield"></i> Admin Login
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Regular user? <a href="{% url 'login' %}">User Login</a></p>
+        </div>
+    </div>
+</div>
+
 <style>
-    /* Black-Themed Admin Login Page */
-    .admin-login-page {
+    .auth-container {
+        min-height: 100vh;
         display: flex;
-        justify-content: center;
         align-items: center;
-        height: 100vh;
-        background-color: #000;
-        font-family: Arial, sans-serif;
-    }
-
-    /* Login Container */
-    .login-container {
-        display: flex;
-        width: 800px;
-        background: #111;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-    }
-
-    /* Left Image Section */
-    .image-section {
-        width: 40%;
-        background: #222;
-        display: flex;
         justify-content: center;
-        align-items: center;
         padding: 20px;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
     }
 
-    .image-section img {
-        width: 100%;
-        border-radius: 5px;
-    }
-
-    /* Right Form Section */
-    .form-section {
-        width: 60%;
+    .auth-box {
+        background: #111;
         padding: 40px;
-        text-align: left;
-        color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid #00a8e1;
     }
 
-    h2 {
-        color: #ff9900;
+    .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .auth-header h1 {
+        color: #00a8e1;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .auth-header p {
+        color: #999;
+        font-size: 16px;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .form-group input {
+        padding: 12px;
+        border: 1px solid #333;
+        border-radius: 8px;
+        background: #222;
+        color: white;
+        font-size: 16px;
+        transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: #00a8e1;
+        outline: none;
+    }
+
+    .auth-button {
+        background: #00a8e1;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+    }
+
+    .auth-button:hover {
+        background: #0099cc;
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #999;
+    }
+
+    .auth-footer a {
+        color: #00a8e1;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .messages {
         margin-bottom: 20px;
     }
 
-    /* Input Group */
-    .input-group {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
+    .alert {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        font-size: 14px;
     }
 
-    label {
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #ddd;
-    }
-
-    input {
-        padding: 10px;
-        border: 1px solid #444;
-        border-radius: 5px;
-        font-size: 14px;
-        background: #222;
+    .alert-success {
+        background-color: #28a745;
         color: white;
     }
 
-    input::placeholder {
-        color: #bbb;
-    }
-
-    /* Submit Button */
-    button {
-        width: 100%;
-        padding: 12px;
-        background: #ff9900;
+    .alert-error {
+        background-color: #dc3545;
         color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background 0.3s;
     }
 
-    button:hover {
-        background: #cc7700;
-    }
+    @media (max-width: 768px) {
+        .auth-box {
+            padding: 30px 20px;
+        }
 
-    /* Links */
-    p {
-        margin-top: 10px;
-        font-size: 14px;
-        color: #ccc;
-    }
-
-    p a {
-        color: #ff9900;
-        text-decoration: none;
-    }
-
-    p a:hover {
-        text-decoration: underline;
+        .auth-header h1 {
+            font-size: 28px;
+        }
     }
 </style>
-<body class="admin-login-page">
-
-    <div class="login-container">
-        <!-- Left Side Image -->
-        <div class="image-section">
-            <img src="admin-image.jpg" alt="Admin Illustration">
-        </div>
-
-        <!-- Right Side Form -->
-        <div class="form-section">
-            <h2>Admin Login</h2>
-
-            {% for message in messages %}
-                <p class="message">{{ message }}</p>
-            {% endfor %}
-
-            <form method="POST">
-                {% csrf_token %}
-                
-                <div class="input-group">
-                    <label>Username</label>
-                    <input type="text" name="username" placeholder="Enter your username" required>
-                </div>
-
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" name="password" placeholder="Enter your password" required>
-                </div>
-
-                <button type="submit">Login</button>
-
-                <p><a href="{% url 'home' %}">Back to Home</a></p>
-            </form>
-        </div>
-    </div>
-
-</body>
-</html>
+{% endblock %}

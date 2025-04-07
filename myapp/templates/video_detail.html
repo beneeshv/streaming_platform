@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ video.title }} - Prime Video</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
+    <title>{{ video.title }} - HOT Flix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
     body {
         background-color: #000000;
@@ -28,7 +25,6 @@
         padding: 5%;
         position: relative;
         border-radius: 20px;
-        
     }
 
     .video-details {
@@ -57,6 +53,45 @@
         display: flex;
         gap: 15px;
         margin: 20px 0;
+    }
+
+        .download-button {
+            background: #2d2d2dc3;
+            border: 1px solid #2d2d2daf;
+            color: #fefffe;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-button .icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .download-button .button-text {
+            display: none;
+            white-space: nowrap;
+        }
+
+        .download-button:hover {
+            background: #2d2d2dbb;
+            transform: translateY(-2px);
+        }
+
+        .download-button:hover .button-text {
+            display: inline;
+        }
+
+        .download-button:hover .icon {
+            transform: translateY(3px);
     }
 
     .prime-button {
@@ -174,18 +209,186 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 80%;
-        max-width: 900px;
+            width: 90%;
+            max-width: 1200px;
         background: black;
         padding: 10px;
         border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
         z-index: 1000;
     }
 
     .video-player video {
         width: 100%;
         border-radius: 10px;
+            background: #000;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .video-player:hover .video-controls {
+            opacity: 1;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .control-button:hover {
+            color: #1f80e0;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .progress-bar:hover {
+            height: 6px;
+        }
+
+        .progress {
+            height: 100%;
+            background: #1f80e0;
+            width: 0;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #1f80e0;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .progress-bar:hover .progress::after {
+            opacity: 1;
+        }
+
+        .preview-thumbnail {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            background: #000;
+            padding: 5px;
+            border-radius: 4px;
+            display: none;
+            pointer-events: none;
+        }
+
+        .progress-bar:hover .preview-thumbnail {
+            display: block;
+        }
+
+        .quality-selector {
+            position: relative;
+        }
+
+        .quality-options {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .quality-selector:hover .quality-options {
+            display: block;
+        }
+
+        .quality-option {
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .quality-option:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .rating-prompt {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1100;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .rating-prompt h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .rating-prompt .stars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .rating-prompt .star {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .rating-prompt .star:hover,
+        .rating-prompt .star.active {
+            color: #ffd700;
+        }
+
+        .rating-prompt .skip-button {
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .rating-prompt .skip-button:hover {
+            color: white;
     }
 
     .close-btn {
@@ -211,18 +414,196 @@
         z-index: 900;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        .video-container {
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-            padding: 10%;
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            position: absolute;
+            width: 96%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(5px);
         }
 
-        .video-details {
-            max-width: 100%;
+        .nav-left {
+            display: flex;
+            align-items: center;
         }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            margin-right: 80px;
+        }
+
+        .logo span {
+            color: #0099ff;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-right: 45px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .search-icon {
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .search-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .search-icon i {
+            font-size: 18px;
+        }
+
+        .search-icon span {
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .search-icon:hover span {
+            display: inline;
+        }
+
+        .join-btn {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            box-sizing: 5px 2px;
+        }
+
+        .join-btn:hover {
+            background-color: #005bb5;
+        }
+
+        .profile-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-right: 30px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 35px;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 150px;
+            color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .dropdown-menu p {
+            margin: 0;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            color: white;
+            padding: 5px 0;
+            text-decoration: none;
+        }
+
+        .dropdown-menu a:hover {
+            color: #1dbf73;
+        }
+
+        .profile-menu:hover .dropdown-menu {
+            display: block;
+        }
+
+        .subscription-required {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .subscription-required h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .subscription-required p {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .subscription-required .subscribe-button {
+            display: inline-block;
+            background: #1f80e0;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+
+        .subscription-required .subscribe-button:hover {
+            background: #1669b2;
+        }
+
+        .time-display {
+            color: white;
+            margin: 0 10px;
+            font-size: 14px;
+            min-width: 100px;
+            text-align: center;
     }
 
     .back-btn {
@@ -244,10 +625,8 @@
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-
 .related-container {
     margin: 2rem 5%;
-    
 }
 
 .related-container h2 {
@@ -259,33 +638,30 @@
 .related-row {
     display: flex;
     gap: 15px;
-    overflow-x: auto;  /* allows horizontal scroll if needed */
-    padding-bottom: 10px;  /* extra space for scroll bar */
+            overflow-x: auto;
+            padding-bottom: 10px;
 }
 
-/* Each movie card/link */
 .related-item {
     flex: 0 0 auto;
-    width: 300px;             /* enlarged base width */
+            width: 300px;
     text-align: center;
     text-decoration: none;
     color: white;
     transition: transform 0.2s;
-    transform-origin: center; /* enlarge from the center */
+            transform-origin: center;
 }
 
 .related-item:hover {
-    transform: scale(1.2);    /* bigger hover effect */
+            transform: scale(1.2);
 }
 
-/* Movie thumbnail */
 .related-item img {
     width: 100%;
     border-radius: 5px;
     margin-bottom: 8px;
 }
 
-/* Updated Rating Styles */
 .rating-section {
     margin: 15px 0;
     padding: 15px;
@@ -377,7 +753,6 @@
     text-decoration: underline;
 }
 
-/* Message Styles */
 .messages {
     margin: 20px 0;
 }
@@ -412,193 +787,97 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
+        @media (max-width: 768px) {
+            .video-container {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                padding: 10%;
+            }
 
-body {
-    margin: 0;
-    padding: 0;
-   
-    font-family: Arial, sans-serif;
-}
-
-.navbar {
-    display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            position: absolute;
-            width: 96%;
-            top: 0;
-            z-index: 1000;
-            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black */
-            backdrop-filter: blur(5px); /* Blur effect */
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: white;
-            margin-right: 80px;
-        }
-        .logo span {
-            color: #0099ff;
+            .video-details {
+                max-width: 100%;
         }
 
 .nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
+                display: none;
+            }
 
-.nav-links li {
-    margin-right: 45px;
-}
+            .result-item {
+                flex-direction: column;
+                text-align: center;
+            }
 
-.nav-links li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.nav-links .divider {
-    width: 1px;
-    height: 24px;
-    background-color: #555;
-    margin: 0 12px;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.search-icon, .language-selector, .menu-icon, .profile-icon {
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.join-btn {
-    background-color: #0073e6;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    box-sizing: 5px 2px;
-    
-}
-
-.join-btn:hover {
-    background-color: #005bb5;
-}
-.profile-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.profile-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-right: 30px;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 35px;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 10px;
-    border-radius: 8px;
-    min-width: 150px;
-    color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-.dropdown-menu p {
-    margin: 0;
+            .result-thumbnail {
+                margin-right: 0;
     margin-bottom: 10px;
-    font-weight: bold;
-    color: #ccc;
-}
+            }
+        }
 
-.dropdown-menu a {
-    display: block;
+    .list-button.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    .list-button.disabled::after {
+        content: attr(title);
+    position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px 10px;
+        background: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 5px 0;
-    text-decoration: none;
-}
+        font-size: 0.8rem;
+        border-radius: 4px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
 
-.dropdown-menu a:hover {
-    color: #1dbf73;
-}
-
-.profile-menu:hover .dropdown-menu {
-    display: block;
-}
-
-
+    .list-button.disabled:hover::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-5px);
+    }
 </style>
+</head>
 <body>
-
     <nav class="navbar">
         <div class="nav-left">
             <div class="logo">HOT <span>Flix</span></div>
             <ul class="nav-links">
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'movies' %}">Movies</a>
-                </li>
-               
-                
+                <li><a href="{% url 'movies' %}">Movies</a></li>
                 <li><a href="">Trailer cuts</a></li>
                 <li><a href="">Feedback</a></li>
-                <li class=""></li>
-                <div class="divider"></div>
-            <li> <a href="#"> Subscriptions</a></li>
-            </div>
+                <li><a href="{% url 'subscription' %}">Subscriptions</a></li>
             </ul>
         </div>
-       
-        
         <div class="nav-right">
-            <a href="{% url 'search' %}" class="search-icon">
+            <a href="{% url 'search' %}" class="search-icon" title="Search">
                 <i class="fas fa-search"></i>
+                <span>Search</span>
             </a>
             <div class="profile-menu">
                 <img src="https://www.kindpng.com/picc/m/173-1731325_person-icon-png-transparent-png.png" alt="Profile" class="profile-icon">
                 <div class="dropdown-menu">
-                    <ul> <li><a href="{% url 'user_details' %}">user</a></li>
-                        <li><a href="{% url 'watchlist' %}">watchlist</a>
+                    <ul>
+                        <li><a href="{% url 'user_details' %}">User</a></li>
+                        <li><a href="{% url 'watchlist' %}">Watchlist</a></li>
                     </ul> 
-            
                     {% if user.is_authenticated %}
                         <a href="{% url 'logout' %}">Sign out</a>
                     {% else %}
                         <a href="{% url 'login' %}">Sign in</a>
                     {% endif %}
-            
-                    
                 </div>
             </div>
-            
-            
             <button class="join-btn">Join Flix</button>
-            
         </div>
     </nav>
-
     
     <div class="video-container">
         <div class="video-details">
@@ -643,9 +922,15 @@ body {
             </div>
 
             <div class="action-buttons">
-                <button class="prime-button" onclick="playVideo()">
+                {% if user.is_authenticated %}
+                    <a href="#" onclick="playVideo(); return false;" class="prime-button">
                     <i class="fas fa-play icon"></i> Watch Now
-                </button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="prime-button">
+                        <i class="fas fa-sign-in-alt icon"></i> Login to Watch
+                    </a>
+                {% endif %}
 
                 {% if user.is_authenticated %}
                     {% if in_watchlist %}
@@ -659,18 +944,19 @@ body {
                             <span class="button-text">Add to Watchlist</span>
                         </a>
                     {% endif %}
-                    <a href="{% url 'rate_video' video.id %}" class="list-button rate-button">
+                    <a href="{% url 'rate_video' video.id %}" class="list-button rate-button {% if not has_watched %}disabled{% endif %}" 
+                       title="{% if not has_watched %}Watch the video first to rate it{% else %}Rate this video{% endif %}">
                         {% if user_rating %}
                             <i class="fas fa-check icon"></i> Rating Submitted
                         {% else %}
                             <i class="fas fa-star icon"></i> Rate Video
                         {% endif %}
                     </a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="list-button">
-                        <i class="fas fa-plus icon"></i> Login to Add to Watchlist
-                    </a>
                 {% endif %}
+                <a href="{% url 'download_video' video.id %}" class="download-button" title="Download Video">
+                    <i class="fas fa-download icon"></i>
+                    <span class="button-text">Download</span>
+                </a>
             </div>
         </div>
     </div>
@@ -678,21 +964,71 @@ body {
     <!-- Video Player -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Video Player -->
 <div class="video-player" id="videoPlayer">
     <button class="close-btn" onclick="closeVideo()">×</button>
-    <video controls id="video">
+    {% if user.is_authenticated %}
+        <video controls id="video" autoplay>
         <source src="{{ video.video_file.url }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+        <div class="video-controls">
+            <button class="control-button" onclick="togglePlayPause()">
+                <i class="fas fa-play" id="playPauseIcon"></i>
+                <span id="playPauseText">Play</span>
+            </button>
+            <button class="control-button" onclick="fastForward(-10)">
+                <i class="fas fa-backward"></i>
+                <span>10s</span>
+            </button>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress" id="progress"></div>
+                <div class="preview-thumbnail" id="previewThumbnail"></div>
+            </div>
+            <button class="control-button" onclick="fastForward(10)">
+                <i class="fas fa-forward"></i>
+                <span>10s</span>
+            </button>
+            <span class="time-display">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </span>
+            <div class="quality-selector">
+                <button class="control-button">
+                    <i class="fas fa-cog"></i>
+                    <span>Quality</span>
+                </button>
+                <div class="quality-options">
+                    <div class="quality-option" onclick="changeQuality('1080p')">1080p</div>
+                    <div class="quality-option" onclick="changeQuality('720p')">720p</div>
+                    <div class="quality-option" onclick="changeQuality('480p')">480p</div>
+                </div>
+            </div>
+            <button class="control-button" onclick="togglePlaybackSpeed()">
+                <i class="fas fa-tachometer-alt"></i>
+                <span id="speedText">1x</span>
+            </button>
+        </div>
+    {% else %}
+        <div class="subscription-required">
+            <h2>Login Required</h2>
+            <p>Please login to watch this video</p>
+            <a href="{% url 'login' %}" class="subscribe-button">Login Now</a>
+        </div>
+    {% endif %}
     <button class="back-btn" onclick="closeVideo()">Back</button>
 </div>
 
-<!-- suggession-->
-
-
-    <!-- Main Movie Banner Section -->
-    
+    <!-- Rating Prompt -->
+    <div class="rating-prompt" id="ratingPrompt" data-has-rating="{% if user_rating %}true{% else %}false{% endif %}">
+        <h3>How would you rate this video?</h3>
+        <div class="stars">
+            <span class="star" data-rating="1">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="5">★</span>
+        </div>
+        <button class="skip-button" onclick="skipRating()">Skip</button>
+    </div>
 
     <!-- Related Movies Section -->
     <div class="related-container">
@@ -708,34 +1044,212 @@ body {
     </div>
 
     <script>
+        let video = document.getElementById('video');
+        let progressBar = document.getElementById('progressBar');
+        let progress = document.getElementById('progress');
+        let previewThumbnail = document.getElementById('previewThumbnail');
+        let ratingPrompt = document.getElementById('ratingPrompt');
+        let hasShownRatingPrompt = false;
+        let lastPlayedTime = 0;
+        let hasWatched = false;
+        let videoWatchedTime = 0;
+        const WATCH_THRESHOLD = 0.8; // 80% of video watched
+
+        // Initialize video player when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (video) {
+                setupVideoListeners();
+                updatePlayPauseButton();
+            }
+        });
+
+        function setupVideoListeners() {
+            if (video) {
+                video.addEventListener('timeupdate', updateProgress);
+                video.addEventListener('ended', handleVideoEnd);
+                video.addEventListener('play', updatePlayPauseButton);
+                video.addEventListener('pause', updatePlayPauseButton);
+                video.addEventListener('loadedmetadata', function() {
+                    document.getElementById('duration').textContent = formatTime(video.duration);
+                });
+                video.addEventListener('timeupdate', checkWatchProgress);
+            }
+            
+            if (progressBar) {
+                progressBar.addEventListener('click', seekTo);
+                progressBar.addEventListener('mousemove', updatePreview);
+            }
+        }
+
        function playVideo() {
-    document.getElementById('videoPlayer').style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('video').play();
+            const videoPlayer = document.getElementById('videoPlayer');
+            const overlay = document.getElementById('overlay');
+            
+            if (videoPlayer && overlay) {
+                videoPlayer.style.display = 'block';
+                overlay.style.display = 'block';
+                
+                if (video) {
+                    video.currentTime = lastPlayedTime;
+                    video.play().catch(function(error) {
+                        console.error("Error playing video:", error);
+                    });
+                }
+
+                // Enable rating after clicking Watch Now
+                hasWatched = true;
+                enableRating();
+            }
 }
 
 function closeVideo() {
-    document.getElementById('videoPlayer').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('video').pause();
-    document.getElementById('video').currentTime = 0;  // Reset video to the beginning
-}
+            if (video) {
+                lastPlayedTime = video.currentTime;
+                video.pause();
+            }
+            
+            const videoPlayer = document.getElementById('videoPlayer');
+            const overlay = document.getElementById('overlay');
+            
+            if (videoPlayer && overlay) {
+                videoPlayer.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        }
 
-// Auto-hide messages after 5 seconds
-document.addEventListener('DOMContentLoaded', function() {
-    const messages = document.querySelectorAll('.alert');
-    messages.forEach(function(message) {
-        setTimeout(function() {
-            message.style.opacity = '0';
-            setTimeout(function() {
-                message.remove();
-            }, 500);
-        }, 5000);
-    });
-});
+        function updateProgress() {
+            if (video && progress) {
+                const percent = (video.currentTime / video.duration) * 100;
+                progress.style.width = `${percent}%`;
+                document.getElementById('currentTime').textContent = formatTime(video.currentTime);
+            }
+        }
 
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            seconds = Math.floor(seconds % 60);
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function seekTo(e) {
+            if (video && progressBar) {
+                const rect = progressBar.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / progressBar.offsetWidth;
+                video.currentTime = pos * video.duration;
+            }
+        }
+
+        function updatePlayPauseButton() {
+            const icon = document.getElementById('playPauseIcon');
+            const text = document.getElementById('playPauseText');
+            if (video.paused) {
+                icon.className = 'fas fa-play';
+                text.textContent = 'Play';
+            } else {
+                icon.className = 'fas fa-pause';
+                text.textContent = 'Pause';
+            }
+        }
+
+        function togglePlayPause() {
+            if (video) {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            }
+        }
+
+        function togglePlaybackSpeed() {
+            if (video) {
+                const speeds = [0.5, 1, 1.25, 1.5, 2];
+                const currentSpeed = video.playbackRate;
+                const nextSpeed = speeds[(speeds.indexOf(currentSpeed) + 1) % speeds.length];
+                video.playbackRate = nextSpeed;
+                document.getElementById('speedText').textContent = `${nextSpeed}x`;
+            }
+        }
+
+        function checkWatchProgress() {
+            // Remove this function's content since we don't need to check progress anymore
+            return;
+        }
+
+        function enableRating() {
+            const rateButton = document.querySelector('.rate-button');
+            if (rateButton) {
+                rateButton.classList.remove('disabled');
+                rateButton.style.pointerEvents = 'auto';
+                rateButton.style.opacity = '1';
+            }
+        }
+
+        function handleVideoEnd() {
+            hasWatched = true;
+            enableRating();
+            const hasRating = ratingPrompt.dataset.hasRating === 'true';
+            if (!hasShownRatingPrompt && !hasRating) {
+                showRatingPrompt();
+            }
+        }
+
+        function showRatingPrompt() {
+            if (ratingPrompt) {
+                hasShownRatingPrompt = true;
+                ratingPrompt.style.display = 'block';
+                
+                const stars = ratingPrompt.querySelectorAll('.star');
+                stars.forEach(star => {
+                    star.addEventListener('mouseover', () => highlightStars(star.dataset.rating));
+                    star.addEventListener('mouseout', () => resetStars());
+                    star.addEventListener('click', () => submitRating(star.dataset.rating));
+                });
+            }
+        }
+
+        function highlightStars(rating) {
+            const stars = ratingPrompt.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.classList.toggle('active', star.dataset.rating <= rating);
+            });
+        }
+
+        function resetStars() {
+            const stars = ratingPrompt.querySelectorAll('.star');
+            stars.forEach(star => star.classList.remove('active'));
+        }
+
+        function submitRating(rating) {
+            window.location.href = `{% url 'rate_video' video.id %}?rating=${rating}`;
+        }
+
+        function skipRating() {
+            if (ratingPrompt) {
+                ratingPrompt.style.display = 'none';
+            }
+        }
+
+        function updatePreview(e) {
+            if (progressBar && previewThumbnail) {
+                const rect = progressBar.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / progressBar.offsetWidth;
+                previewThumbnail.style.left = `${pos * 100}%`;
+            }
+        }
+
+        function changeQuality(quality) {
+            // Implement quality change logic here
+            console.log(`Changing quality to ${quality}`);
+        }
+
+        function fastForward(seconds) {
+            if (video) {
+                video.currentTime = Math.max(0, Math.min(video.currentTime + seconds, video.duration));
+                updateProgress();
+            }
+        }
     </script>
-
 </body>
 </html>
 

@@ -248,6 +248,7 @@ button.carousel-btn:hover {
     width: 100%;
     border-radius: 8px;
     cursor: pointer;
+    
 }
 
 /* Dropdown Menu */
@@ -259,12 +260,13 @@ button.carousel-btn:hover {
     background-color: rgba(0, 0, 0, 0.8);
     padding: 10px;
     border-radius: 8px;
-    min-width: 200px;
+    min-width: 150px;
     color: white;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
+    margin-top: 50px;
 }
 
 /* Show dropdown when hovering over movie */
@@ -323,8 +325,8 @@ button.carousel-btn:hover {
             <div class="slide">
                 <img src="https://cdn.wallpapersafari.com/56/86/nM9ysU.jpg" alt="Realme Watch">
                 <div class="slide-text2">
-                    <h2>Available new movies</h2>
-                    <p class="text2">1.8" Ultra-Large Display<br>14 Days Battery Life<br>GPS Tracking</p>
+                    <h2>Ｓｃｒｏｌｌ Ｔｈｅ Ｓｃｒｅｅｎ Ｅｘｐｌｏｒｅ Ｍｏｒｅ</h2>
+                    <p class="text2">1.8" Ultra-Large Display<br>Available new movies<br>GPS Tracking</p>
                    
                 </div>
             </div>
@@ -371,7 +373,7 @@ button.carousel-btn:hover {
     </script>
    
 
-  <h1>NEW MOVIE</h1><br>
+  <h1>NEW MOVIE</h1><br><br>
   {% for category in categories %}
     <div class="category">
       <!-- Category Name (clickable) -->
@@ -389,8 +391,7 @@ button.carousel-btn:hover {
             </a>
             <div class="dropdown-menu">
                 <h3>{{ video.title }}</h3>
-                <span>2024 • 2h 39min</span>
-                <span>U/A 16+</span>
+                
             </div>
         </div>
         

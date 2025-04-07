@@ -3,251 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Video Navbar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Subscriptions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * {
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: white;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-        body {
-            background-color: #000;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
+
+        .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #000;
+            max-width: 1300px; /* Increased width */
+            margin: 60px auto;
+            padding: 30px;
         }
-        .nav-left {
+
+        .text-section {
+            max-width: 45%; /* Slightly wider */
+        }
+
+        .text-section h1 {
+            font-size: 45px; /* Larger heading */
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .text-section p {
+            font-size: 20px; /* Larger text */
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px; /* Increased spacing */
+            max-width: 50%;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #1a2a6c, #001f3f);
             display: flex;
             align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            height: 120px; /* Larger height */
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
         }
-        .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: white;
+
+        .card:hover {
+            transform: scale(1.08); /* More prominent hover effect */
         }
-        .logo span {
-            color: #0099ff;
+
+        .card img {
+            max-width: 75%;
+            height: auto;
         }
-        .nav-links {
-            display: flex;
-            margin-left: 20px;
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .text-section {
+                max-width: 90%;
+            }
+            .grid {
+                max-width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            margin: 0 10px;
-            font-size: 16px;
-        }
-        .nav-links a:hover {
-            color: #0099ff;
-        }
-        .divider {
-            height: 20px;
-            width: 1px;
-            background-color: gray;
-            margin: 0 10px;
-        }
-        .nav-right {
-            display: flex;
-            align-items: center;
-        }
-        .icon {
-            color: white;
-            font-size: 18px;
-            margin: 0 10px;
-            cursor: pointer;
-        }
-        .icon:hover {
-            color: #0099ff;
-        }
-        .profile-icon {
-            width: 30px;
-            height: 30px;
-            background-color: gray;
-            border-radius: 50%;
-        }
-        .join-btn {
-            background-color: #0073ff;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .join-btn:hover {
-            background-color: #005bbf;
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-left">
-            <div class="logo">prime <span>video</span></div>
-            <div class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Movies</a>
-                <a href="#">TV Shows</a>
-                <a href="#">Live TV</a>
-                <div class="divider"></div>
-                <a href="#"><i class="fa-solid fa-qrcode"></i> Subscriptions</a>
-            </div>
-        </div>
-        <div class="nav-right">
-            <i class="fa-solid fa-magnifying-glass icon"></i>
-            <span>TA <i class="fa-solid fa-chevron-down"></i></span>
-            <i class="fa-solid fa-th icon"></i>
-            <div class="profile-icon"></div>
-            <button class="join-btn">Join Prime</button>
-        </div>
-    </nav>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Netflix</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-    /* Netflix Background */
-body.netflix-background {
-    background: url('https://assets.nflxext.com/ffe/siteui/vlv3/bb3d9eaa-2736-4d32-b9ef-9a67047d41e7/d9cb3d58-e4b4-41c7-a9fb-1d12e93b9321/US-en-20230918-popsignuptwoweeks-perspective_alpha_website_small.jpg') no-repeat center center/cover;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-}
-
-/* Container Styling */
-.container {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 40px;
-    border-radius: 10px;
-    color: #fff;
-    text-align: center;
-    width: 350px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Heading */
-.container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Input Fields */
-.container input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    background: #333;
-    color: #fff;
-}
-
-/* Placeholder Styling */
-.container input::placeholder {
-    color: #bbb;
-}
-
-/* Button */
-.container button {
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    background: #e50914;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.container button:hover {
-    background: #b20710;
-}
-
-/* Message Styling */
-.message {
-    color: #ffcc00;
-    margin-bottom: 10px;
-}
-
-/* Link Styling */
-.container p {
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.container a {
-    color: #e50914;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.container a:hover {
-    text-decoration: underline;
-}
-
-</style>
-<body class="netflix-background">
     <div class="container">
-        <h2>Login</h2>
-        {% for message in messages %}
-            <p class="message">{{ message }}</p>
-        {% endfor %}
-        <form method="POST">
-            {% csrf_token %}
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-        <a href="{% url 'admin_login' %}">admin </a>
+        <!-- Left Side Text -->
+        <div class="text-section">
+            <h1>Your favorite subscriptions all in one place</h1>
+            <p>With Prime Video Channels, find shows and movies from your favorite channels all in one place. Enjoy with an add-on subscription to Channels of your choice.</p>
+        </div>
+
+        <!-- Right Side Subscription Grid -->
+        <div class="grid">
+            <div class="card"><img src="https://static.vecteezy.com/system/resources/previews/022/100/698/original/marvel-logo-transparent-free-png.png" alt="Lionsgate Play"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/LionsgatePlay-426X2946_V1._AC_SX400_QL80_FP_.jpg" alt="Discovery+"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/426x294_Discovery._AC_SX400_QL80_FP_.jpg" alt="BBC Player"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/426x294_BBC_PLAYER._AC_SX400_QL80_FP_.png" alt="Manorama Max"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/426x294_MANORAMAMAX._AC_SX400_QL80_FP_.jpg" alt="Hoichoi"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/hoichoi-426X2946_V1._AC_SX400_QL80_FP_.jpg" alt="Chaupal"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/426x294_Chaupal._AC_SX400_QL80_FP_.png" alt="Anime Times"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/426x294_Anime._AC_SX400_QL80_FP_.jpg" alt="Sony Pictures Stream"></div>
+            <div class="card"><img src="https://m.media-amazon.com/images/G/31/AmazonVideo/2021/Channels/MLP/426x294_MGMPLUS._AC_SX400_QL80_FP_.png" alt="MGM+"></div>
+        </div>
     </div>
+
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="netflix-background">
-    <div class="container">
-        <h2>Admin Login</h2>
-        {% for message in messages %}
-            <p class="message">{{ message }}</p>
-        {% endfor %}
-        <form method="POST">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p><a href="{% url 'home' %}">Back to Home</a></p>
-    </div>
-</body>
-</html>
+
+
+<h1>Browse Categories</h1>
+<div class="category-container">
+    {% for category in categories %}
+        <div class="category-card">
+            <a href="{% url 'category_videos' category.id %}">
+                <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                <div class="overlay">
+                    <h3>{{ category.name }}</h3>
+                </div>
+            </a>
+        </div>
+    {% empty %}
+        <p>No categories found.</p>
+    {% endfor %}
+</div>

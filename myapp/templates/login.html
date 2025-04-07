@@ -1,153 +1,203 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Prime Video</title>
-    <link rel="stylesheet" href="styles.css"> 
-</head>
+{% extends 'base.html' %}
+
+{% block title %}Login - HOT Flix{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue watching</p>
+        </div>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-options">
+                <a href="{% url 'forgot_password' %}" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="auth-button">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="{% url 'register' %}">Create Account</a></p>
+        </div>
+        <p> <a href="{% url 'admin_login' %}">admin</a></p>
+    </div>
+</div>
+
 <style>
-    /* Black Theme */
-    .login-page {
+    .auth-container {
+        min-height: 100vh;
         display: flex;
-        justify-content: center;
         align-items: center;
-        height: 100vh;
-        background-color: #000000; /* Pure Black */
-        font-family: Arial, sans-serif;
-        color: white;
-    }
-
-    /* Login Container */
-    .login-container {
-        display: flex;
-        width: 800px;
-        background: #111111; /* Deep Black */
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-    }
-
-    /* Left Image Section */
-    .image-section {
-        width: 40%;
-        background: #0a0a0a; /* Darker Shade */
-        display: flex;
         justify-content: center;
-        align-items: center;
         padding: 20px;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
     }
 
-    .image-section img {
-        width: 100%;
-        border-radius: 5px;
-    }
-
-    /* Right Form Section */
-    .form-section {
-        width: 60%;
+    .auth-box {
+        background: #111;
         padding: 40px;
-        text-align: left;
-        background: #181818; /* Deep Grey-Black */
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        width: 100%;
+        max-width: 400px;
     }
 
-    h2 {
-        color: #00a8e1; /* Prime Video Blue */
-        margin-bottom: 20px;
+    .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
     }
 
-    /* Input Group */
-    .input-group {
+    .auth-header h1 {
+        color: white;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .auth-header p {
+        color: #999;
+        font-size: 16px;
+    }
+
+    .auth-form {
         display: flex;
         flex-direction: column;
-        margin-bottom: 15px;
+        gap: 20px;
     }
 
-    label {
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-group label {
+        color: white;
         font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 5px;
+        font-weight: 500;
     }
 
-    input {
-        padding: 10px;
+    .form-group input {
+        padding: 12px;
         border: 1px solid #333;
-        border-radius: 5px;
-        font-size: 14px;
+        border-radius: 8px;
         background: #222;
         color: white;
+        font-size: 16px;
+        transition: border-color 0.3s;
     }
 
-    /* Submit Button */
-    button {
-        width: 100%;
-        padding: 12px;
+    .form-group input:focus {
+        border-color: #00a8e1;
+        outline: none;
+    }
+
+    .form-options {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -10px;
+    }
+
+    .forgot-password {
+        color: #00a8e1;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+    .auth-button {
         background: #00a8e1;
         color: white;
         border: none;
-        border-radius: 5px;
+        padding: 14px;
+        border-radius: 8px;
         font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
-        transition: 0.3s;
-    }
-
-    button:hover {
-        background: #0086b3;
-    }
-
-    /* Login & Register Links */
-    p {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: background-color 0.3s;
         margin-top: 10px;
-        font-size: 14px;
     }
 
-    p a {
+    .auth-button:hover {
+        background: #0099cc;
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #999;
+    }
+
+    .auth-footer a {
         color: #00a8e1;
         text-decoration: none;
+        font-weight: 500;
     }
 
-    p a:hover {
+    .auth-footer a:hover {
         text-decoration: underline;
     }
 
-    /* Admin Link */
-    .admin-link {
-        display: block;
-        margin-top: 10px;
+    .messages {
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
         font-size: 14px;
-        color: #ff5733;
-        text-decoration: none;
-        font-weight: bold;
     }
 
-    .admin-link:hover {
-        text-decoration: underline;
+    .alert-success {
+        background-color: #28a745;
+        color: white;
     }
 
+    .alert-error {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .auth-box {
+            padding: 30px 20px;
+        }
+
+        .auth-header h1 {
+            font-size: 28px;
+        }
+    }
 </style>
-<body class="login-page">
-
-    <body class="netflix-background">
-        <div class="container">
-            <h2>Login</h2>
-            {% if messages %}
-                {% for message in messages %}
-                    <p class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-            <form method="POST">
-                {% csrf_token %}
-                <div class="input-group">
-                    <input type="email" name="email" placeholder="Email" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" name="password" placeholder="Password" required>
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-            <a href="{% url 'admin_login' %}" class="admin-link">Admin Login</a>
-        </div>
-
-</body>
-</html>
+{% endblock %}

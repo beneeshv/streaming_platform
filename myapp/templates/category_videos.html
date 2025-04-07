@@ -17,9 +17,50 @@
             padding: 20px;
         }
 
-        h2 {
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .category-title {
             font-size: 1.8rem;
-            margin-bottom: 10px;
+            margin: 0;
+        }
+
+        .category-filter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-label {
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+
+        .category-select {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-select:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .category-select option {
+            background: #1a1a1a;
+            color: white;
         }
 
         .movie-row {
@@ -89,6 +130,8 @@
             border-radius: 5px;
             cursor: pointer;
             margin-top: 5px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .watchlist-btn:hover {
@@ -99,12 +142,30 @@
             .movie-row {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .category-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 <br><br><br>
-    <h2>Videos in {{ category.name }}</h2>
+    <div class="category-header">
+        <h2 class="category-title">{{ category.name }}</h2>
+        <div class="category-filter">
+            <span class="filter-label">Filter by Category:</span>
+            <select class="category-select" onchange="window.location.href=this.value">
+                {% for cat in all_categories %}
+                    <option value="{% url 'category_videos' cat.id %}" {% if cat.id == category.id %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
     <div class="movie-row">
         {% for video in videos %}
             <div class="movie-card">

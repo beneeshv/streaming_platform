@@ -33,9 +33,75 @@
         button:hover {
             background: #0056b3;
         }
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+        }
+        .sidebar {
+            width: 250px;
+            background: #121212;
+            padding: 20px;
+            height: 100vh;
+            transition: width 0.3s ease-in-out;
+            overflow: hidden;
+            position: fixed;
+            cursor: pointer;
+        }
+        .sidebar.collapsed {
+            width: 70px;
+        }
+        .sidebar h2 {
+            color: #00a8e1;
+            transition: opacity 0.3s;
+        }
+        .sidebar.collapsed h2 {
+            opacity: 0;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 15px;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar ul li a i {
+            margin-right: 10px;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 250px;
+            transition: margin-left 0.3s;
+        }
+        .sidebar.collapsed + .main-content {
+            margin-left: 70px;
+        }
     </style>
 </head>
 <body>
+    <div class="sidebar" id="sidebar" onclick="toggleSidebar()">
+        <h2>Prime Admin</h2>
+        <ul>
+            <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="{% url 'add_video' %}"><i class="fas fa-plus"></i> Add Video</a></li>
+            <li><a href="{% url 'movies_list' %}" class="active"><i class="fas fa-film"></i> Movies</a></li>
+            <li><a href="#"><i class="fas fa-tv"></i> TV Shows</a></li>
+            <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+        </ul>
+        <div class="logout-section">
+            <a href="{% url 'logout' %}" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
     <div class="container">
         <h2>Add a New Video</h2>
         <form method="POST" enctype="multipart/form-data">

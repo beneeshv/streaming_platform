@@ -138,6 +138,35 @@
         .dropdown-menu a:hover {
             color: #1dbf73;
         }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.2); /* Transparent white */
+            border-radius: 25px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 18px;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 25px;
+            width: 250px;
+            background: transparent;
+            color: white;
+        }
+
+       
+
+        .search-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -154,6 +183,24 @@
                 <a href="#"><i class="fa-solid fa-qrcode"></i> Subscriptions</a>
             </div>
         </div>
+        <div class="search-container">
+        
+            <a id="searchLink" href="{% url 'search' %}">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search...">
+                <button class="search-button" onclick="search()"></button>
+                
+            </a>
+        </div>
+    
+        <script>
+            function search() {
+                var query = document.getElementById("searchInput").value;
+                if (query) {
+                    document.getElementById("searchLink").href = "search.html?q=" + encodeURIComponent(query);
+                    document.getElementById("searchLink").click(); // Navigate to the search page
+                }
+            }
+        </script>
         <div class="nav-right">
             <div class="profile-menu">
                 {% if user_id %}
@@ -168,9 +215,6 @@
                     <a href="{% url 'login' %}" class="join-btn">Sign In</a>
                 {% endif %}
             </div>
-            {% if not user_id %}
-                <a href="{% url 'register' %}" class="join-btn">Join Prime</a>
-            {% endif %}
         </div>
     </nav>
 
